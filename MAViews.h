@@ -16,6 +16,8 @@ namespace za
 			{
 				void interestRateCalculator();
 				void compoundInterestRateCalculator();
+				void cashFlowCalculator();
+				void bondCalculator();
 
 			};
 

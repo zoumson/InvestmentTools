@@ -128,11 +128,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="InvestmentTools.cpp" />
+    <ClCompile Include="MAEquities.cpp" />
     <ClCompile Include="MAFixedIncome.cpp" />
     <ClCompile Include="MAUtilities.cpp" />
     <ClCompile Include="MAViews.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MAEquities.h" />
     <ClInclude Include="MAFixedIncome.h" />
     <ClInclude Include="MAUtilities.h" />
     <ClInclude Include="MAViews.h" />

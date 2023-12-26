@@ -8,7 +8,11 @@ int main()
 	//fi::interestRateCalculator();
 	//fi::compoundInterestRateCalculator();
 	//fi::cashFlowCalculator();
-	fi::bondCalculator();
+	//fi::bondCalculator();
+	//eq::maCalculator();
+	//eq::volatilityCalculator();
+	//eq::correlationCalculator();
+	eq::fundamentalsCalc();
 
 	return 0;
 }

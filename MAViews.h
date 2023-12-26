@@ -1,6 +1,7 @@
 #pragma once
 #include "MAUtilities.h"
 #include "MAFixedIncome.h"
+#include "MAEquities.h"
 
 
 namespace za
@@ -22,6 +23,18 @@ namespace za
 			};
 
 #pragma endregion fixedIncome
+#pragma region equities
+
+			namespace eq
+			{
+				void maCalculator();
+				void volatilityCalculator();
+				void correlationCalculator();
+				void fundamentalsCalc();
+
+			};
+
+#pragma endregion equities
 
 
 		}

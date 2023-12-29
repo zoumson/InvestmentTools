@@ -1,7 +1,10 @@
 #include "MAFixedIncome.h"
 
 
-#pragma once
+
+
+
+
 namespace za
 {
 	namespace ma

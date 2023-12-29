@@ -1,5 +1,10 @@
 #include "MAViews.h"
 
+
+
+
+
+
 namespace za
 {
 	namespace ma
@@ -121,7 +126,7 @@ namespace za
 				}
 				void correlationCalculator()
 				{
-					double price;
+				
 					std::vector<double> pricea = { 1.2, 2, 2.5, 4, 3, 6, 5.5, 6.3, 7.1, 5.4 };
 					std::vector<double> priceb = { 3.4, 3.3, 3, 5.5, 1.2, 2.4, 3.2, 3.1, 2.9, 3.2 };
 					TimeSeries tsa;
@@ -136,8 +141,7 @@ namespace za
 					CorrelationCalculator cCalc(tsa, tsb);
 					auto correlation = cCalc.correlation();
 					std::cout << "correlation is " << correlation << std::endl;
-				}
-					
+				}				
 				void fundamentalsCalc()
 				{
 					FundamentalsCalculator fc("AAPL", 543.99, 12.20);
@@ -163,6 +167,154 @@ namespace za
 			};
 
 #pragma endregion equities
+#pragma region programmingTechniques
+
+			namespace pt
+			{
+				using namespace za::ma::pt;
+				void intRateEngine()
+				{
+					//Select All configurations and All platforms in the property page. Then set C++17 and apply.
+					//if (_MSVC_LANG == 202101L) std::cout << "C++23";
+					//else if (_MSVC_LANG == 202002L) std::cout << "C++20";
+					//else if (_MSVC_LANG == 201703L) std::cout << "C++17";
+					//else if (_MSVC_LANG == 201402L) std::cout << "C++14";
+					//else if (_MSVC_LANG == 201103L) std::cout << "C++11";
+					//else if (_MSVC_LANG == 199711L) std::cout << "C++98";
+					//else std::cout << "pre-standard C++." << _MSVC_LANG;
+					
+
+					IntRateEngine<BondInstrument> engineA;
+					IntRateEngine<MortgageInstrument> engineB;
+					BondInstrument bond(40000, 250);
+					MortgageInstrument mortgage(250, 50000, 5000);
+					engineA.setInstrument(bond);
+					engineB.setInstrument(mortgage);
+					
+					std::cout << " bond annual int rate: " << engineA.getAnnualIntRate() * 100 << "%" << std::endl;
+					std::cout << " mortgage annual int rate: " << engineB.getAnnualIntRate() * 100 << "%" << std::endl;
+				}
+				void financialStatement()
+				{
+					std::unique_ptr<FinancialStatement> fs = getSampleStatement();
+					transferFinancialStatement(fs);
+					//transferFinancialStatement();
+					// the unique_ptr object is invalid here, the next access can crash the
+					//std::cout << fs->getReturn() << "\n";
+
+				}
+				void transactionHandler()
+				{
+					//use shared ptr if dealing if std stl 
+					//dont throw exeption using the new keyword by value instead 
+					std::string fileName = "";
+					try
+					{
+						std::cout << "hello" << std::endl;
+						TransactionHandler handler(fileName);
+					}
+					catch (FileError& e)
+					{
+						std::cerr << "received a file error: " << e.what() << std::endl;
+					}
+					catch (TransactionTypeError& e)
+					{
+						std::cerr << "received a transaction error: " << e.what() << std::endl;
+					}			
+					catch (std::runtime_error& e)
+					{
+						std::cerr << "received a runtime_error error: " << e.what() << std::endl;
+					}
+					catch (...)
+					{
+						std::cerr << "received an unknown error\n";
+					}
+
+					std::cout << "world" << std::endl;
+				}
+
+			};
+#pragma endregion programmingTechniques
+
+#pragma region commonLibraries
+
+			namespace cl
+			{
+				using namespace za::ma::cl;
+				void timeSeriesTransformations()
+				{
+
+					TimeSeriesTransformations ts;
+					std::vector<double> vals = { 7, 6.4, 2.16, 5, 3, 7 };
+					ts.addValues(vals);
+					ts.addValue(6.5);
+					ts.reducePrices(0.5);
+					std::cout << " price is " << ts.getFirstPriceLessThan(6.0) << std::endl;
+				}
+				void fileManager()
+				{
+					FileManager fm("/tmp/");
+					std::vector<std::string> contents = fm.getDirectoryContents();
+					std::cout << "entries: " << std::endl;
+					for (std::string entry : contents)
+					{
+						std::cout << entry << std::endl;
+					}
+				}
+				void dateHandle()
+				{
+					//Date myDate(2023, 12, 27);
+					Date myDate(2015, 1, 3);
+					//++myDate;
+					auto dayOfWeek = myDate.getDayOfWeek();
+
+					std::cout << " Day of week is "<< myDate.toStringDate(dayOfWeek) << std::endl;
+					Date secondDate(2014, 12, 5);
+					++secondDate; // test increment operator
+					++secondDate;
+					int interval = myDate.daysInterval(secondDate);
+					std::cout << " interval is " << interval << " days" << std::endl;
+				}
+
+			};
+#pragma endregion commonLibraries
+
+
+#pragma region numericalClasses
+
+			namespace nc
+			{
+				using namespace za::ma::nc;
+				void factorialTemplate()
+				{
+					std::cout << "factorial(6) = " << Factorial<6>::result;
+					std::cout << "\n choiceNumber(5,6) = " << ChoiceNumber<6, 2>::result;
+					showFactorial();
+				};
+				void calmarRatio()
+				{
+					CalmarRatio<CalmarRatioPerc> ratio(0.110, 3.12);
+					std::cout << "return: " << ratio.getReturn() << " drawdown: " << ratio.getDrawDown() << std::endl;
+
+					CalmarRatio<CalmarRatioBPS> bpsRatio(480, 2.15);
+					std::cout << "return: " << bpsRatio.getReturn() << " drawdown: " << bpsRatio.getDrawDown() << std::endl;
+				}
+
+				void distributionData()
+				{
+					DistributionData dData;
+					auto gdata = dData.gaussianData(10, 5, 2);
+					printData("gaussian data", gdata);
+					auto edata = dData.exponentialData(10, 4);
+					printData("exponential data", edata);
+					auto kdata = dData.chiSquaredData(10, 5);
+					printData("chi squared data", kdata);
+					auto ldata = dData.logNormalData(10, 8, 2);
+					printData("log normal data", ldata);
+				}
+
+			};
+#pragma endregion numericalClasses
 
 		}
 	}

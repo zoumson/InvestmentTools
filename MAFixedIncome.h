@@ -1,5 +1,7 @@
 #pragma once
 #include "MAUtilities.h"
+
+
 /*
 * In a fixed income investment, a contractually defined exchange occurs between two parties. 
 * Both parties agree to exchange cash flows that are assigned based on interest rates and the time of cash exchanges. 
@@ -42,6 +44,9 @@
 * Investments by Zvi Bodie, Alex Kane, and Alan Marcus
 * Mathematics for Finance by Marek Carpinski and Tomasz Zastawniak
 */
+
+
+
 
 namespace za
 {

@@ -12,7 +12,16 @@ int main()
 	//eq::maCalculator();
 	//eq::volatilityCalculator();
 	//eq::correlationCalculator();
-	eq::fundamentalsCalc();
+	//eq::fundamentalsCalc();
+	//pt::intRateEngine();
+	//pt::financialStatement();
+	//pt::transactionHandler();
+	//cl::timeSeriesTransformations();
+	//cl::fileManager();
+	//cl::dateHandle();
+	//nc::factorialTemplate();
+	//nc::calmarRatio();
+	nc::distributionData();
 
 	return 0;
 }

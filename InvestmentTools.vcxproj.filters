@@ -30,6 +30,15 @@
     <ClCompile Include="MAEquities.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MAProgrammingTechniques.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MACommonLibraries.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MANumerical.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAFixedIncome.h">
@@ -42,6 +51,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MAEquities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MAProgrammingTechniques.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MACommonLibraries.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MANumerical.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,6 +2,12 @@
 #include "MAUtilities.h"
 #include "MAFixedIncome.h"
 #include "MAEquities.h"
+#include "MAProgrammingTechniques.h"
+#include "MACommonLibraries.h"
+#include "MANumerical.h"
+
+
+
 
 
 namespace za
@@ -23,6 +29,7 @@ namespace za
 			};
 
 #pragma endregion fixedIncome
+
 #pragma region equities
 
 			namespace eq
@@ -31,10 +38,43 @@ namespace za
 				void volatilityCalculator();
 				void correlationCalculator();
 				void fundamentalsCalc();
-
-			};
+			}
 
 #pragma endregion equities
+
+#pragma region programmingTechniques
+
+			namespace pt
+			{
+				void intRateEngine();
+				void financialStatement();
+				void transactionHandler();
+
+			};
+#pragma endregion programmingTechniques
+
+#pragma region commonLibraries
+
+			namespace cl
+			{
+
+				void timeSeriesTransformations();
+				void fileManager();
+				void dateHandle();
+
+			};
+#pragma endregion commonLibraries
+
+#pragma region numericalClasses
+
+			namespace nc
+			{
+				void factorialTemplate();
+				void calmarRatio();
+				void distributionData();
+
+			};
+#pragma endregion numericalClasses
 
 
 		}

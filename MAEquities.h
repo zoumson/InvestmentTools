@@ -1,8 +1,96 @@
 ﻿#pragma once
 #include "MAUtilities.h"
 
+/*
+* Equities Market Concepts
+* The goal of an equity investment is to allocate money directly or indirectly to company stock, which
+* gives buyers a certain share of ownership in a company. 
+* The idea behind this investment is to profit from the growth of the institution represented by that particular investment vehicle. 
+* For example, buying shares of IBM stock gives ownership of a small part of the
+* company, along with the future profits associated with that ownership.
+* Direct stock ownership is the simplest example of an equity investment. 
+* Anyone with a brokerage account can buy shares in public companies, that is, companies that have
+* put their shares for sale in the public market. 
+* There are nowadays a plethora of products that offer alternative ways to invest in equity. 
+* This includes mutual funds, ETFs, index funds, options, and other more exotic derivatives. 
+*/
 
-#pragma once
+/*
+* Market Participants
+* Large institutions form a sizable portion of the equities market landscape. 
+* These big, sell-side investment institutions (such as investment banks and exchanges) are
+* viewed as the backbone of the market. 
+* Therefore, they are also commonly referred to as market makers. 
+* These large companies are buying and selling great volumes of equity
+* investment vehicles (such as stocks) daily, with the goal of having small profits in each operation. 
+* More recently, high-frequency trading was added to this picture, resulting in
+increased volume and speed in market transactions.
+*/
+
+
+
+
+/*
+* Mutual funds: These funds receive investments from retail investors
+* and institutions and make investments in areas of the market
+* that they believe will have larger than usual investment returns.
+* Mutual funds are mostly limited to buying stocks and ETFs, so their
+* performance is limited when the market is in a downtrend.
+*/
+
+
+
+/*
+* Hedge funds: Hedge funds use more advanced techniques, such as
+* shorting stocks and buying options and futures on risky investments
+* not available to common investors, so they are limited to wealthier
+* investors and some kinds of institutions that can cope with the
+* increased risk.
+*/
+
+/*
+* Investment banks: These institutions are actively working on
+* the market composition. For example, they act in bringing to the
+* market new issues (also known as IPOs) that will be traded by other
+* investors. They are also allowed to trade for themselves and other
+* large clients.
+*/
+
+/*
+* High-frequency trading funds: These funds use high-performance
+* computational techniques to provide instant liquidity to the markets
+* while making small profits in a large number of transactions.
+*/
+
+
+/*
+* Brokerage companies: These companies work directly with
+* individual investors providing the ability to buy or sell stocks, ETFs,
+* mutual funds, and options for a small or even no commission per
+* transaction. Their services are made available through the Internet
+* on several platforms such as desktops, web browsers, and mobile
+* devices.
+*/
+
+
+/*
+* Pension funds: These are institutions that hold large pools of
+* investment money derived from retirement funds. They are geared
+* toward long-term investments that will support the desired growth of
+* the fund for an extended time period.
+*/
+
+
+/*
+* Retail investors: These are individuals who control a brokerage
+* account and do their own research and make their own decisions on
+* what to buy and sell in the market
+*/
+
+
+
+
+
 namespace za
 {
 	namespace ma
@@ -136,11 +224,6 @@ namespace za
 #pragma endregion Example4
 
 #pragma region Example5
-			/*
-			* Fundamental indicators are one of the most common ways of analyzing the quality of a stock. 
-			For example, earnings per share are a fundamental indicator that tells how much profit is being generated per period 
-			* (usually a quarter or a year) for each share of the stock.
-			*/
 
 
 			/*
@@ -189,7 +272,8 @@ namespace za
 			*/
 
 
-			class FundamentalsCalculator {
+			class FundamentalsCalculator 
+			{
 			public:
 				FundamentalsCalculator(const std::string& ticker, double price, double
 					dividend);

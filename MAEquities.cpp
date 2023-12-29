@@ -1,7 +1,11 @@
 #include "MAEquities.h"
 
 
-#pragma once
+
+
+
+
+
 namespace za
 {
 	namespace ma

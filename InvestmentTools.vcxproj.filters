@@ -39,6 +39,24 @@
     <ClCompile Include="MANumerical.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MALinearAlgebra.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MAInterpolation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MARoot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MANumericalIntegration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MAOdePde.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MAOptimization.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAFixedIncome.h">
@@ -60,6 +78,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MANumerical.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MALinearAlgebra.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MAInterpolation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MARoot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MANumericalIntegration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MAOdePde.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MAOptimization.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

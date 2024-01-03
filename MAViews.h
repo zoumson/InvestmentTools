@@ -5,9 +5,13 @@
 #include "MAProgrammingTechniques.h"
 #include "MACommonLibraries.h"
 #include "MANumerical.h"
-
-
-
+#include "MALinearAlgebra.h"
+#include "MAInterpolation.h"
+#include "MARoot.h"
+#include "MANumericalIntegration.h"
+#include "MAOdePde.h"
+#include "MAOdePde.h"
+#include "MAOptimization.h"
 
 
 namespace za
@@ -75,7 +79,70 @@ namespace za
 
 			};
 #pragma endregion numericalClasses
+#pragma region linearAgebra
 
+			//namespace la
+			//{
+			//	//void matrixOperations();
+
+			//};
+#pragma endregion linearAgebra
+
+#pragma region interpolation
+
+			namespace it
+			{
+				void linearInterpolation();
+				void polynomialInterpolation();
+
+			};
+#pragma endregion interpolation
+
+#pragma region root
+
+			namespace re
+			{
+				void bisectionMethod();
+				void secantMethod();
+				void newtonMethod();
+
+			};
+#pragma endregion root
+
+#pragma region numericalIntegration
+
+			namespace ni
+			{
+				using namespace za::ma::ni;
+				void midpointIntegration();
+				void trapezoidIntegration();
+				void simpsonsIntegration();
+			}
+
+#pragma endregion numericalIntegration
+
+#pragma region OdePde
+
+			namespace od
+			{
+				using namespace za::ma::od;
+				void eulersMethod();
+				void rungeKuttaODEMethod();
+				void blackScholesForwardMethod();
+			}
+
+#pragma endregion OdePde
+#pragma region Optimization
+
+			namespace op
+			{
+				using namespace za::ma::op;
+				void lpSolver();
+				void twoDimensionalLPSolver();
+				void mipSolver();
+			}
+
+#pragma endregion Optimization
 
 		}
 	}

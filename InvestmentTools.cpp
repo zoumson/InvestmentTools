@@ -21,7 +21,21 @@ int main()
 	//cl::dateHandle();
 	//nc::factorialTemplate();
 	//nc::calmarRatio();
-	nc::distributionData();
+	//nc::distributionData();
+	//la::matrixOperations();
+	//it::linearInterpolation();
+	//it::polynomialInterpolation();
+	//re::secantMethod();
+	//re::newtonMethod();
+	//ni::midpointIntegration();
+	//ni::trapezoidIntegration();
+	//ni::simpsonsIntegration();
+	//od::eulersMethod();
+	//od::rungeKuttaODEMethod();
+	//od::blackScholesForwardMethod();
+	//op::lpSolver();
+	//op::twoDimensionalLPSolver();
+	op::mipSolver();
 
 	return 0;
 }

@@ -176,7 +176,7 @@ namespace za
 
 			//using boost::math::quantile;
 
-			static boost::rand48 random_generator;
+			//static boost::rand48 random_generator;
 
 			DistributionData::DistributionData()
 			{
@@ -190,7 +190,7 @@ namespace za
 				boost::random::normal_distribution<> distrib(mean, sigma);
 				for (int i = 0; i < nPoints; ++i)
 				{
-					double val = distrib(random_generator);
+					double val = distrib(za::ma::com::boost_random_generator);
 					data.push_back(val);
 				}
 				return data;
@@ -202,7 +202,7 @@ namespace za
 				boost::random::exponential_distribution<> distrib(rate);
 				for (int i = 0; i < nPoints; ++i)
 				{
-					double val = distrib(random_generator);
+					double val = distrib(za::ma::com::boost_random_generator);
 					data.push_back(val);
 				}
 				return data;
@@ -213,7 +213,7 @@ namespace za
 				boost::random::lognormal_distribution<> distrib(mean, sigma);
 				for (int i = 0; i < nPoints; ++i)
 				{
-					double val = distrib(random_generator);
+					double val = distrib(za::ma::com::boost_random_generator);
 					data.push_back(val);
 				}
 				return data;
@@ -224,7 +224,7 @@ namespace za
 				boost::random::chi_squared_distribution<> distrib(degreesOfFreedom);
 				for (int i = 0; i < nPoints; ++i)
 				{
-					double val = distrib(random_generator);
+					double val = distrib(za::ma::com::boost_random_generator);
 					data.push_back(val);
 				}
 				return data;

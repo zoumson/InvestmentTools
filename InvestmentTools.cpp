@@ -41,7 +41,9 @@ int main()
 	//mc::monteCarloIntegration();
 	//mc::randomWalk();
 	//mc::optionsProbabilities();
-	mt::testThread();
+	//mt::testThread();
+	//mt::parallelRandomWalk();
+	mt::mutexTestThread();
 
 	return 0;
 }

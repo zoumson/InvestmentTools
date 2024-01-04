@@ -175,6 +175,8 @@ namespace za
 			{
 				using namespace za::ma::mt;
 				void testThread();
+				void parallelRandomWalk();
+				void mutexTestThread();
 
 			}
 

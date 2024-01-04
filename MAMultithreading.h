@@ -41,13 +41,74 @@ namespace za
 
 #pragma region Example2
 
-
-
+			class ParallelOptionsProbabilities
+			{
+			public:
+				ParallelOptionsProbabilities(int size, double strike, double sigma);
+				ParallelOptionsProbabilities(const ParallelOptionsProbabilities& p);
+				~ParallelOptionsProbabilities();
+				ParallelOptionsProbabilities& operator=(const
+					ParallelOptionsProbabilities& p);
+				double probFinishAboveStrike();
+			private:
+				int m_numSteps; // number of steps
+				double m_step; // size of each step (in percentage)
+				double m_strikePrice; // starting price
+			};
+			class RandomWalkThread : public Thread
+			{
+			public:
+				RandomWalkThread(int num_steps, double sigma, double startPrice);
+				~RandomWalkThread();
+				virtual void run();
+				double gaussianValue(double mean, double sigma);
+				double getLastPriceOfWalk();
+				double result();
+			private:
+				int m_numberOfSteps; // number of steps
+				double m_sigma; // size of each step (in percentage)
+				double m_startingPrice; // starting price
+				double m_result;
+			};
+			
 #pragma endregion Example2
 
 #pragma region Example3
-
-
+			struct MutexData;
+			class Mutex 
+			{
+			public:
+				Mutex();
+				~Mutex();
+				void lock();
+				void unlock();
+			private:
+				Mutex(const Mutex& p); // copy not allowed
+				Mutex& operator=(const Mutex& p); // assignment not allowed
+				MutexData* m_data;
+			};
+			class MutexAccess 
+			{
+			public:
+				MutexAccess(Mutex& m);
+				~MutexAccess();
+			private:
+				MutexAccess& operator=(const MutexAccess& p);
+				MutexAccess(const MutexAccess& p);
+				Mutex& m_mutex;
+			};
+			class MutexTestThread : public Thread 
+			{
+			public:
+				MutexTestThread(double& result, double incVal);
+				~MutexTestThread();
+				void run();
+			private:
+				double& m_result;
+				double m_incValue;
+				static Mutex m_globalMutex;
+			};
+			
 #pragma endregion Example3
 
 #pragma region Example4

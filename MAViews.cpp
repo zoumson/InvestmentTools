@@ -681,10 +681,33 @@ namespace za
 				using namespace za::ma::mt;
 				void testThread()
 				{
-					Thread* myThread = new TestThread;
-					myThread->setJoinable(true);
-					myThread->start();
-					myThread->join();
+					ParallelOptionsProbabilities rw(100, 50.0, 52.0);
+					double r = rw.probFinishAboveStrike();
+					std:: cout << " result is " << r << std::endl;
+				}			
+				
+				void parallelRandomWalk()
+				{
+					ParallelOptionsProbabilities rw(100, 50.0, 52.0);
+					double r = rw.probFinishAboveStrike();
+					std::cout << " result is " << r << std::endl;
+				}				
+				void mutexTestThread()
+				{
+					int nThreads = 10;
+					std::vector<Thread*> threads(nThreads);
+					double price = rand() % 25;
+					for (int i = 0; i < nThreads; ++i)
+					{
+						threads[i] = new MutexTestThread(price, (double)(rand() % 10));
+						threads[i]->setJoinable(true);
+						threads[i]->start();
+					}
+					for (int i = 0; i < nThreads; ++i)
+					{
+						threads[i]->join();
+					}
+					std::cout << " final price is " << price << std::endl;
 				}
 
 			}

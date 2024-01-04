@@ -12,7 +12,9 @@
 #include "MAOdePde.h"
 #include "MAOdePde.h"
 #include "MAOptimization.h"
-
+#include "MAAssetPortfolio.h"
+#include "MAMonteCarlo.h"
+#include "MAMultithreading.h"
 
 namespace za
 {
@@ -143,6 +145,40 @@ namespace za
 			}
 
 #pragma endregion Optimization
+
+#pragma region assetPortfolio
+
+			namespace ap
+			{
+				using namespace za::ma::ap;
+				void resourceAlloc();
+				void modifiedCAP();
+
+			}
+
+#pragma endregion assetPortfolio
+#pragma region monteCarlo
+
+			namespace mc
+			{
+				using namespace za::ma::mc;
+				void monteCarloIntegration();
+				void randomWalk();
+				void optionsProbabilities();
+
+			}
+
+#pragma endregion monteCarlo
+#pragma region mutltithreading
+
+			namespace mt
+			{
+				using namespace za::ma::mt;
+				void testThread();
+
+			}
+
+#pragma endregion mutltithreading
 
 		}
 	}

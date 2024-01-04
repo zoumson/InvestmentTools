@@ -504,7 +504,7 @@ namespace za
 			{
 				using namespace za::ma::op;
 
-
+				//move to common functions 
 				void lpSolver()
 				{
 					za::ma::com::Matrix A(3);
@@ -514,7 +514,7 @@ namespace za
 
 					std::vector<double> c = { 10, 6, 4 };
 					std::vector<double> b = { 100, 600, 300 };
-					LPSolver solver(A, b, c);
+					za::ma::com::LPSolver solver(A, b, c);
 					solver.setMaximization();
 					std::vector<double> results;
 					double objVal;
@@ -555,7 +555,7 @@ namespace za
 					A[0][1] = 2;
 					A[1][0] = 3;
 					A[1][1] = 4;
-					MIPSolver solver(A, b, c);
+					za::ma::com::MIPSolver solver(A, b, c);
 					solver.setMaximization();
 					solver.setColInteger(0);
 
@@ -568,6 +568,128 @@ namespace za
 			}
 
 #pragma endregion Optimization
+
+#pragma region assetPortfolio
+
+			namespace ap
+			{
+				using namespace za::ma::ap;
+
+
+				void resourceAlloc()
+				{
+					std::vector<double> result;
+					double objVal;
+					ResourceAlloc ra(result, objVal);
+					ra.solveProblem();
+					std::cout << " optimum: " << objVal;
+
+					for (int i = 0; i < result.size(); ++i)
+					{
+						std::cout << " x" << i << ": " << result[i];
+					}
+					std::cout << std::endl;
+				}
+
+				void modifiedCAP()
+				{
+					// sample problem: 4 assets and 5 periods
+					// build the expected return matrix
+					double val[][5] = {
+					{0.051, 0.050, 0.049, 0.051, 0.05},
+					{0.10, 0.099, 0.102, 0.100, 0.101},
+					{0.073, 0.077, 0.076, 0.075, 0.076},
+					{0.061, 0.06, 0.059, 0.061, 0.062},
+					};
+					za::ma::com::Matrix retMatrix(4, 5);
+					for (int i = 0; i < 4; ++i)
+					{
+						for (int j = 0; j < 5; ++j)
+						{
+							retMatrix[i][j] = val[i][j];
+						}
+					}
+
+					std::vector<double> assetReturns = { 0.05, 0.10, 0.075, 0.06 };
+					ModifiedCAP mc(4, 5, 0.08, retMatrix, assetReturns);
+					std::vector<double> results;
+					double objVal;
+					//use one of the solver 
+					//mc.solveModel(results, objVal);
+					mc.solveExtendedModel(results, objVal);
+					std::cout << "obj value: " << objVal / 5 << std::endl;
+					for (int i = 0; i < results.size(); ++i)
+					{
+						std::cout << " x" << i << ": " << results[i];
+					}
+					std::cout << std::endl;
+
+				}
+			
+
+			}
+
+#pragma endregion assetPortfolio
+
+#pragma region monteCarlo
+
+			namespace mc
+			{
+				using namespace za::ma::mc;
+
+
+				void monteCarloIntegration()
+				{
+					std::cout << "starting" << std::endl;
+					FSin f;
+					MonteCarloIntegration mci(f);
+					double integral = mci.getIntegral(0.5, 4.9);
+
+					std::cout << " the integral of the function is " << integral << std::endl;
+					mci.setNumSamples(200000);
+					integral = mci.getIntegral(0.5, 4.9);
+					std::cout << " the integral of the function with 20000 intervals is " << integral << std::endl;
+				}
+
+
+				void randomWalk()
+				{
+					RandomWalk rw(100, 30, 0.01);
+					std::vector<double> walk = rw.getWalk();
+					for (int i = 0; i < walk.size(); ++i)
+					{
+						std::cout << ", " << i << ", " << walk[i];
+					}
+					std::cout << std::endl;
+				}
+
+				void optionsProbabilities()
+				{
+					OptionsProbabilities optP(30, 35, 0.01, 100);
+					std::cout << " above strike prob: " << optP.probFinishAboveStrike() << std::endl;
+					std::cout << " below strike prob: " << optP.probFinishBelowStrike() << std::endl;
+					std::cout << " between 28 and 32 prob: " << optP.probFinalPriceBetweenPrices(28, 32) << std::endl;
+				}
+
+			}
+
+#pragma endregion monteCarlo
+#pragma region mutltithreading
+
+			namespace mt
+			{
+				using namespace za::ma::mt;
+				void testThread()
+				{
+					Thread* myThread = new TestThread;
+					myThread->setJoinable(true);
+					myThread->start();
+					myThread->join();
+				}
+
+			}
+
+#pragma endregion mutltithreading
 		}
 	}
 

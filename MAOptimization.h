@@ -14,43 +14,45 @@ namespace za
 #pragma region Example1
 			//already define in glk header file 
 			//struct glp_prob;
-			class LPSolver 
-			{
-			public:
-				
-				LPSolver(za::ma::com::Matrix& A, const std::vector<double>& b, const std::vector<double>& c);
-				LPSolver(za::ma::com::Matrix& A, const std::vector<double>& b, const std::vector<double>& c, const std::string& probname);
-				LPSolver(const LPSolver& p);
-				~LPSolver();
-				LPSolver& operator=(const LPSolver& p);
-				enum ResultType 
-				{
-					INFEASIBLE,
-					FEASIBLE,
-					ERROR
-				};
-				virtual ResultType solve(std::vector<double>& result, double & objValue);
-				void setName(const std::string& s);
-				bool isValid();
 
-				//if wanted to call these parents functions on child object override it and call it as LPSolver::setMaximization
-				virtual void setMaximization();
-				virtual void setMinimization();
-			private:
-				size_t m_M;
-				size_t m_N;
-				std::vector<double> m_c;
-				std::vector<double> m_b;
-				za::ma::com::Matrix m_A;
-				glp_prob* m_lp;
-				void initProblem(size_t M, size_t N);
-				void setRowBounds();
-				void setColumnCoefs();
-			protected:
-				glp_prob* getLP();
-				int getNumCols();
-				int getNumRows();
-			};
+
+			//class LPSolver 
+			//{
+			//public:
+			//	
+			//	LPSolver(za::ma::com::Matrix& A, const std::vector<double>& b, const std::vector<double>& c);
+			//	LPSolver(za::ma::com::Matrix& A, const std::vector<double>& b, const std::vector<double>& c, const std::string& probname);
+			//	LPSolver(const LPSolver& p);
+			//	~LPSolver();
+			//	LPSolver& operator=(const LPSolver& p);
+			//	enum ResultType 
+			//	{
+			//		INFEASIBLE,
+			//		FEASIBLE,
+			//		ERROR
+			//	};
+			//	virtual ResultType solve(std::vector<double>& result, double & objValue);
+			//	void setName(const std::string& s);
+			//	bool isValid();
+
+			//	//if wanted to call these parents functions on child object override it and call it as LPSolver::setMaximization
+			//	virtual void setMaximization();
+			//	virtual void setMinimization();
+			//private:
+			//	size_t m_M;
+			//	size_t m_N;
+			//	std::vector<double> m_c;
+			//	std::vector<double> m_b;
+			//	za::ma::com::Matrix m_A;
+			//	glp_prob* m_lp;
+			//	void initProblem(size_t M, size_t N);
+			//	void setRowBounds();
+			//	void setColumnCoefs();
+			//protected:
+			//	glp_prob* getLP();
+			//	int getNumCols();
+			//	int getNumRows();
+			//};
 #pragma endregion Example1
 
 #pragma region Example2
@@ -73,20 +75,20 @@ namespace za
 #pragma endregion Example2
 
 #pragma region Example3
-			class MIPSolver : public LPSolver 
-			{
-			public:
-				MIPSolver(za::ma::com::Matrix& A, const std::vector<double>& b, const std::vector<double>& c);
-				MIPSolver(const MIPSolver& p);
-				~MIPSolver();
-				MIPSolver& operator=(const MIPSolver& p);
-				//override in order to call it from child class 
-				void setMaximization() override;
-				void setMinimization()override;
-				void setColInteger(int colNum);
-				void setColBinary(int colNum);
-				ResultType solve(std::vector<double>& result, double& objValue) override;
-			};
+			//class MIPSolver : public za::ma::com::LPSolver 
+			//{
+			//public:
+			//	MIPSolver(za::ma::com::Matrix& A, const std::vector<double>& b, const std::vector<double>& c);
+			//	MIPSolver(const MIPSolver& p);
+			//	~MIPSolver();
+			//	MIPSolver& operator=(const MIPSolver& p);
+			//	//override in order to call it from child class 
+			//	void setMaximization() override;
+			//	void setMinimization()override;
+			//	void setColInteger(int colNum);
+			//	void setColBinary(int colNum);
+			//	za::ma::com::LPSolver::ResultType solve(std::vector<double>& result, double& objValue) override;
+			//};
 #pragma endregion Example3
 
 #pragma region Example4

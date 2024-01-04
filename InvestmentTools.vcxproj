@@ -141,11 +141,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="InvestmentTools.cpp" />
+    <ClCompile Include="MAAssetPortfolio.cpp" />
     <ClCompile Include="MACommonLibraries.cpp" />
     <ClCompile Include="MAEquities.cpp" />
     <ClCompile Include="MAFixedIncome.cpp" />
     <ClCompile Include="MAInterpolation.cpp" />
     <ClCompile Include="MALinearAlgebra.cpp" />
+    <ClCompile Include="MAMonteCarlo.cpp" />
+    <ClCompile Include="MAMultithreading.cpp" />
     <ClCompile Include="MANumerical.cpp" />
     <ClCompile Include="MANumericalIntegration.cpp" />
     <ClCompile Include="MAOdePde.cpp" />
@@ -156,11 +159,14 @@
     <ClCompile Include="MAViews.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MAAssetPortfolio.h" />
     <ClInclude Include="MACommonLibraries.h" />
     <ClInclude Include="MAEquities.h" />
     <ClInclude Include="MAFixedIncome.h" />
     <ClInclude Include="MAInterpolation.h" />
     <ClInclude Include="MALinearAlgebra.h" />
+    <ClInclude Include="MAMonteCarlo.h" />
+    <ClInclude Include="MAMultithreading.h" />
     <ClInclude Include="MANumerical.h" />
     <ClInclude Include="MANumericalIntegration.h" />
     <ClInclude Include="MAOdePde.h" />

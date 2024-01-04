@@ -35,7 +35,13 @@ int main()
 	//od::blackScholesForwardMethod();
 	//op::lpSolver();
 	//op::twoDimensionalLPSolver();
-	op::mipSolver();
+	//op::mipSolver();
+	//ap::resourceAlloc();
+	//ap::modifiedCAP();
+	//mc::monteCarloIntegration();
+	//mc::randomWalk();
+	//mc::optionsProbabilities();
+	mt::testThread();
 
 	return 0;
 }

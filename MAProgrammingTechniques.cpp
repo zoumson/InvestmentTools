@@ -2,8 +2,6 @@
 
 
 
-
-
 namespace za
 {
 	namespace ma
@@ -13,16 +11,14 @@ namespace za
 
 #pragma region Example1
 			BondInstrument::BondInstrument(double principal, double monthlyPayment)
-				: m_principal(principal),
-				m_monthlyPay(monthlyPayment)
+				: m_principal(principal), m_monthlyPay(monthlyPayment)
 			{
 			}
 			BondInstrument::~BondInstrument()
 			{
 			}
 			BondInstrument::BondInstrument(const BondInstrument& a)
-				: m_monthlyPay(a.m_monthlyPay),
-				m_principal(a.m_principal)
+				: m_monthlyPay(a.m_monthlyPay), m_principal(a.m_principal)
 			{
 			}
 			BondInstrument& BondInstrument::operator =(const BondInstrument& a)
@@ -45,20 +41,15 @@ namespace za
 #pragma endregion Example1
 
 #pragma region Example2
-			MortgageInstrument::MortgageInstrument(double monthlyPay, double
-				propertyValue, double downpayment)
-				: m_monthlyPay(monthlyPay),
-				m_propertyValue(propertyValue),
-				m_downPayment(downpayment)
+			MortgageInstrument::MortgageInstrument(double monthlyPay, double propertyValue, double downpayment)
+				: m_monthlyPay(monthlyPay), m_propertyValue(propertyValue), m_downPayment(downpayment)
 			{
 			}
 			MortgageInstrument::~MortgageInstrument()
 			{
 			}
 			MortgageInstrument::MortgageInstrument(const MortgageInstrument& a)
-				: m_downPayment(a.m_downPayment),
-				m_propertyValue(a.m_propertyValue),
-				m_monthlyPay(a.m_monthlyPay)
+				: m_downPayment(a.m_downPayment), m_propertyValue(a.m_propertyValue), m_monthlyPay(a.m_monthlyPay)
 			{
 			}
 			MortgageInstrument& MortgageInstrument::operator =(const MortgageInstrument& a)
@@ -87,16 +78,14 @@ namespace za
 #pragma endregion Example3
 
 #pragma region Example4
-			FinancialStatement::FinancialStatement()
-				: m_return(0)
+			FinancialStatement::FinancialStatement(): m_return(0)
 			{
 			}
 			FinancialStatement::~FinancialStatement()
 			{
 			}
 			FinancialStatement::FinancialStatement(const FinancialStatement& v)
-				: m_return(v.m_return),
-				m_transactions(v.m_transactions)
+				: m_return(v.m_return), m_transactions(v.m_transactions)
 			{
 			}
 			FinancialStatement& FinancialStatement::operator=(FinancialStatement& v)
@@ -112,8 +101,7 @@ namespace za
 			{
 				return m_return;
 			}
-			void FinancialStatement::addTransaction(const std::string& security,
-				double val)
+			void FinancialStatement::addTransaction(const std::string& security, double val)
 			{
 				m_transactions.push_back(std::make_pair(security, val));
 			}
@@ -159,8 +147,7 @@ namespace za
 			RiskCalculator::~RiskCalculator()
 			{
 			}
-			RiskCalculator::RiskCalculator(const RiskCalculator& v)
-				: m_creditRisks(v.m_creditRisks)
+			RiskCalculator::RiskCalculator(const RiskCalculator& v): m_creditRisks(v.m_creditRisks)
 			{
 			}
 			RiskCalculator& RiskCalculator::operator =(const RiskCalculator& v)
@@ -209,16 +196,14 @@ namespace za
 #pragma endregion Example7	
 
 #pragma region Example8
-			FileError::FileError(const std::string& s)
-				: std::runtime_error(s)
+			FileError::FileError(const std::string& s): std::runtime_error(s)
 			{
 			}
 
 #pragma endregion Example8
 
 #pragma region Example9
-			TransactionTypeError::TransactionTypeError(const std::string& s)
-				: std::runtime_error(s)
+			TransactionTypeError::TransactionTypeError(const std::string& s): std::runtime_error(s)
 			{
 			}
 
@@ -229,8 +214,7 @@ namespace za
 			const std::string TransactionHandler::SELL_OP = "SELL";
 			const std::string TransactionHandler::BUY_OP = "BUY";
 			const std::string TransactionHandler::SHORT_OP = "SHORT";
-			TransactionHandler::TransactionHandler(const std::string& fileName)
-				: m_fileName(fileName)
+			TransactionHandler::TransactionHandler(const std::string& fileName): m_fileName(fileName)
 			{
 				std::ifstream file;
 
@@ -241,15 +225,13 @@ namespace za
 					throw FileError(std::string("error opening file ") + m_fileName);
 				}
 			}
-			TransactionHandler::TransactionHandler(const TransactionHandler& a)
-				: m_fileName(a.m_fileName)
+			TransactionHandler::TransactionHandler(const TransactionHandler& a): m_fileName(a.m_fileName)
 			{
 			}
 			TransactionHandler::~TransactionHandler()
 			{
 			}
-			TransactionHandler& TransactionHandler::operator=(const
-				TransactionHandler& a)
+			TransactionHandler& TransactionHandler::operator=(const TransactionHandler& a)
 			{
 				if (this != &a)
 				{
@@ -287,8 +269,7 @@ namespace za
 			NumVector::~NumVector()
 			{
 			}
-			NumVector::NumVector(const NumVector& v)
-				: m_values(v.m_values)
+			NumVector::NumVector(const NumVector& v): m_values(v.m_values)
 			{
 			}
 			NumVector& NumVector::operator=(const NumVector& v)
@@ -321,6 +302,7 @@ namespace za
 				{
 					throw std::runtime_error("vectors must have the same size");
 				}
+
 				NumVector result;
 				for (int i = 0; i < a.size(); ++i)
 				{

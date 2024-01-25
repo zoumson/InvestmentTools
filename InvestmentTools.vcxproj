@@ -77,12 +77,12 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>;C:\Boost\include\boost-1_81</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Boost\include\boost-1_81;C:\Users\adazou1\source\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>;C:\Boost\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\adazou1\source\vcpkg\installed\x64-windows\lib;;C:\Boost\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -109,12 +109,12 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);C:\Boost\include\boost-1_81</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);C:\Boost\include\boost-1_81;C:\Users\adazou1\source\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);C:\Boost\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\adazou1\source\vcpkg\installed\x64-windows\lib;%(AdditionalLibraryDirectories);C:\Boost\lib</AdditionalLibraryDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -permissive- -Zc:__cplusplus -Zc:externConstexpr -utf-8 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <Manifest>
@@ -143,8 +143,10 @@
     <ClCompile Include="InvestmentTools.cpp" />
     <ClCompile Include="MAAssetPortfolio.cpp" />
     <ClCompile Include="MACommonLibraries.cpp" />
+    <ClCompile Include="MAEigen.cpp" />
     <ClCompile Include="MAEquities.cpp" />
     <ClCompile Include="MAFixedIncome.cpp" />
+    <ClCompile Include="MAFunctionObject.cpp" />
     <ClCompile Include="MAInterpolation.cpp" />
     <ClCompile Include="MALinearAlgebra.cpp" />
     <ClCompile Include="MAMonteCarlo.cpp" />
@@ -161,8 +163,10 @@
   <ItemGroup>
     <ClInclude Include="MAAssetPortfolio.h" />
     <ClInclude Include="MACommonLibraries.h" />
+    <ClInclude Include="MAEigen.h" />
     <ClInclude Include="MAEquities.h" />
     <ClInclude Include="MAFixedIncome.h" />
+    <ClInclude Include="MAFunctionObject.h" />
     <ClInclude Include="MAInterpolation.h" />
     <ClInclude Include="MALinearAlgebra.h" />
     <ClInclude Include="MAMonteCarlo.h" />

@@ -35,6 +35,9 @@
 #include <cstdlib>
 #include <random>
 #include <pthread.h>
+#include <Eigen/Dense>
+#include <Eigen/LU>
+
 namespace za
 {
 	namespace ma

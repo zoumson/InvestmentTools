@@ -15,6 +15,9 @@
 #include "MAAssetPortfolio.h"
 #include "MAMonteCarlo.h"
 #include "MAMultithreading.h"
+#include "MAFunctionObject.h"
+#include "MAEigen.h"
+
 
 namespace za
 {
@@ -169,6 +172,7 @@ namespace za
 			}
 
 #pragma endregion monteCarlo
+
 #pragma region mutltithreading
 
 			namespace mt
@@ -181,6 +185,44 @@ namespace za
 			}
 
 #pragma endregion mutltithreading
+
+#pragma region functionObject
+
+			namespace fo
+			{
+				using namespace za::ma::fo;
+				void functionPointer();
+				void functionObject();
+
+			}
+
+#pragma endregion functionObject
+#pragma region eigenLib
+
+			namespace eg
+			{
+				using namespace za::ma::eg;
+				void basicUsage();
+
+				void basicLinearAlgebra1();
+				void basicLinearAlgebra2();
+				void basicLinearAlgebra3();
+				void basicLinearAlgebra4();
+				void basicLinearAlgebra5();
+				void basicLinearAlgebra6();
+				void basicLinearAlgebra7();
+
+				void advancedLinearAlgebra1();
+				void advancedLinearAlgebra2();
+				void advancedLinearAlgebra3();
+				void advancedLinearAlgebra4();
+				void advancedLinearAlgebra5();
+				void advancedLinearAlgebra6();
+				void advancedLinearAlgebra7();
+
+			}
+
+#pragma endregion eigenLib
 
 		}
 	}

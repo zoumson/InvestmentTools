@@ -125,7 +125,8 @@ namespace za
 #pragma endregion Example3
 
 #pragma region Example4
-			class DistributionData {
+			class DistributionData 
+			{
 			public:
 				// standard constructor and destructor
 				DistributionData();

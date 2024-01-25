@@ -66,6 +66,12 @@
     <ClCompile Include="MAMultithreading.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MAFunctionObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MAEigen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAFixedIncome.h">
@@ -114,6 +120,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MAMultithreading.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MAFunctionObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MAEigen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

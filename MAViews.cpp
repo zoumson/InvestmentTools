@@ -713,6 +713,234 @@ namespace za
 			}
 
 #pragma endregion mutltithreading
+
+#pragma region functionObject
+
+			namespace fo
+			{
+				using namespace za::ma::fo;
+				void functionPointer()
+				{
+					double a = 5.0;
+					double b = 10.0;
+					std::cout << "Add : " << binaryOp1(a, b, addOp) << std::endl;
+					std::cout << "Multiply: " << binaryOp1(a, b, multiplyOp) << std::endl;
+				}
+
+				void functionObject()
+				{
+					double a = 5.0;
+					double b = 10.0;
+					BinaryFunctionOp* pAdd = new AddOp();
+					BinaryFunctionOp* pMultiply = new MultiplyOp();
+					std::cout << "Add : " << binaryOp2(a, b, pAdd) << std::endl;
+					std::cout << "Multiply: " << binaryOp2(a, b, pMultiply) << std::endl;
+					delete pAdd;
+					delete pMultiply;
+				}
+
+			}
+
+#pragma endregion functionObject
+
+#pragma region eigenLib
+
+			namespace eg
+			{
+				using namespace za::ma::eg;
+				void basicUsage()
+				{
+					Eigen::MatrixXd m(3, 3);
+					m << 1, 2, 3, 4, 5, 6, 7, 8, 9;
+					std::cout << m << std::endl;
+				}
+
+
+				void basicLinearAlgebra1()
+				{
+					///*
+					//* Expression Templates
+					//*/
+					////lazy evaluation 
+					//Eigen::VectorXd p(10), q(10), r(10), s(10);
+					////compute p = 5*q + 11*r - 7*s
+					//for (unsigned i = 0; i < 10; i++)
+					//{
+					//	p[i] = 5 * q[i] + 11 * r[i] - 7 * s[i];
+					//}
+
+				}
+				void basicLinearAlgebra2()
+				{
+					/*
+					* Matrix and Scalar Arithmetic
+					*/
+					//Define two matrices, both 3 by 3 
+					Eigen::Matrix3d p;
+					Eigen::Matrix3d q;
+					//Define two three-dimensional vectors 
+					//The constructor provides initialisation
+					Eigen::Vector3d r(1, 2, 3);
+					Eigen::Vector3d s(4, 5, 6);
+
+					p << 1, 2, 3,
+						4, 5, 6,
+						7, 8, 9;
+
+					q << 10, 11, 12,
+						13, 14, 15,
+						16, 17, 18;
+
+					//Arithmetic operations for matrices
+					std::cout << "p + q = \n" << p + q << std::endl;
+					std::cout << "p - q = \n" << p - q << std::endl;
+
+
+					//Arithmetic operations for vectors
+					std::cout << "r + s = \n" << r + s << std::endl;
+					std::cout << "r - s = \n" << r - s << std::endl;
+				}
+				void basicLinearAlgebra3()
+				{
+
+					/*
+					* Scalar Multiplication and division
+					*/
+					//Define a 3 by 3 matrix and initialise 
+					Eigen::Matrix3d pp;
+					pp << 1, 2, 3,
+						4, 5, 6,
+						7, 8, 9;
+
+					std::cout << "pp * 3.14159 = \n" << pp * 3.14159 << std::endl;
+					std::cout << "pp / 2.71828 = \n" << pp / 2.71828 << std::endl;
+				}
+				void basicLinearAlgebra4()
+				{
+					/*
+					* Matrix transpose
+					*/
+					//Declare a 3 by 3 matrix with random entries 
+					Eigen::Matrix3d p = Eigen::Matrix3d::Random(3, 3);
+					std::cout << "p^T = \n" << p.transpose() << std::endl;
+					//in place transpose of p
+					p.transposeInPlace();
+					std::cout << "p^T = \n" << p << std::endl;
+				}
+
+				void basicLinearAlgebra5()
+				{
+					/*
+					* Matrix/Matrix and Matrix/Vector Multiplication
+					*/
+					//Define a 3 by 3 matrix and two 3- dimensional vector
+					Eigen::Matrix3d p;
+
+					p << 1, 2, 3,
+						4, 5, 6,
+						7, 8, 9;
+
+					Eigen::Vector3d r(10, 11, 12);
+					Eigen::Vector3d s(13, 14, 15);
+
+					//Matrix/Matrix multiplication 
+					std::cout << "p * p:\n" << p * p << std::endl;
+
+
+					//Matrix/vector multiplication 
+					std::cout << "p * r\n" << p * r << std::endl;
+					std::cout << "r^T * p\n" << r.transpose() * p << std::endl;
+
+					//Vector/vector multiplication(inner product)
+					std::cout << "r^T * s:\n" << r.transpose() * s << std::endl;
+				}
+				void basicLinearAlgebra6()
+				{
+					/*
+					* vector operations: dot and cross products
+					*/
+					//Declare and initialise two 3D vectors 
+					Eigen::Vector3d r(10, 20, 30);
+					Eigen::Vector3d s(40, 50, 60);
+
+					std::cout << "r . s =\n" << r.dot(s) << std::endl;
+					std::cout << "r x s =\n" << r.cross(s) << std::endl;
+
+				}
+				void basicLinearAlgebra7()
+				{
+					/*
+					* Reduction
+					*/
+					Eigen::Matrix3d p;
+					p << 1, 2, 3,
+						 4, 5, 6,
+						 7, 8, 9;
+
+					std::cout << "p.sum() " << p.sum() << std::endl;
+					std::cout << "p.prod() " << p.prod() << std::endl;
+					std::cout << "p.mean() " << p.mean() << std::endl;
+					std::cout << "p.minCoeff() " << p.minCoeff() << std::endl;
+					std::cout << "p.maxCoeff() " << p.maxCoeff() << std::endl;
+					std::cout << "p.trace() " << p.trace() << std::endl;
+
+				}
+
+
+				void advancedLinearAlgebra1()
+				{
+					typedef Eigen::Matrix<double, 4, 4> Matrix4x4;
+					Matrix4x4 p;
+
+					p << 7, 3, -1, 2,
+						 3, 8, 1, -4,
+						-1, 1, 4, -1,
+						 2, -4, -1, 6;
+
+					std::cout << "Matrix p: \n" << p << std::endl << std::endl;
+					//LU Decomposition template object for p 
+					Eigen::PartialPivLU<Matrix4x4> lu(p);
+					std::cout << "LU matrix: \n" << lu.matrixLU() << std::endl << std::endl;
+
+					//L, the lower triangular matrix 
+					Matrix4x4 l = Eigen::MatrixXd::Identity(4, 4);
+					l.block<4, 4>(0, 0).triangularView < Eigen::StrictlyLower>() = lu.matrixLU();
+					std::cout << "l matrix: \n" << l << std::endl << std::endl;
+					//U, the upper triangular matrix 
+					Matrix4x4 u = lu.matrixLU().triangularView < Eigen::Upper>();
+					std::cout << "u matrix: \n" << u << std::endl << std::endl;
+
+				
+
+				}
+				void advancedLinearAlgebra2()
+				{
+
+				}
+				void advancedLinearAlgebra3()
+				{
+
+				}
+				void advancedLinearAlgebra4()
+				{
+
+				}
+				void advancedLinearAlgebra5()
+				{
+
+				}
+				void advancedLinearAlgebra6()
+				{
+
+				}
+				void advancedLinearAlgebra7()
+				{
+
+				}
+			}
+
+#pragma endregion eigenLib
+
 		}
 	}
 

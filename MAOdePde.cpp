@@ -12,12 +12,10 @@ namespace za
 		{
 
 #pragma region Example1
-			EulersMethod::EulersMethod(za::ma::com::MathFunction2<double>& f)
-				: m_f(f)
+			EulersMethod::EulersMethod(za::ma::com::MathFunction2<double>& f): m_f(f)
 			{
 			}
-			EulersMethod::EulersMethod(const EulersMethod& p)
-				: m_f(p.m_f)
+			EulersMethod::EulersMethod(const EulersMethod& p): m_f(p.m_f)
 			{
 			}
 
@@ -63,12 +61,10 @@ namespace za
 #pragma endregion Example1
 
 #pragma region Example2
-			RungeKuttaODEMethod::RungeKuttaODEMethod(za::ma::com::MathFunction2<double>& f)
-				: m_f(f)
+			RungeKuttaODEMethod::RungeKuttaODEMethod(za::ma::com::MathFunction2<double>& f) : m_f(f)
 			{
 			}
-			RungeKuttaODEMethod::RungeKuttaODEMethod(const RungeKuttaODEMethod& p)
-				: m_f(p.m_f)
+			RungeKuttaODEMethod::RungeKuttaODEMethod(const RungeKuttaODEMethod& p) : m_f(p.m_f)
 			{
 			}
 			RungeKuttaODEMethod::~RungeKuttaODEMethod()
@@ -82,6 +78,10 @@ namespace za
 				}
 				return *this;
 			}
+
+			//initial condition of the ODE is (x0, y0)
+			//evaluate the function at x = c
+			//n is the number of steps between x0 and c
 			double RungeKuttaODEMethod::solve(int n, double x0, double y0, double c)
 			{
 				auto x = x0;
@@ -104,17 +104,11 @@ namespace za
 #pragma region Example3
 
 			BlackScholesForwardMethod::BlackScholesForwardMethod(double expiration, double maxPrice, double strike, double intRate)
-				: m_expiration(expiration),
-				m_maxPrice(maxPrice),
-				m_strike(strike),
-				m_intRate(intRate)
+				: m_expiration(expiration), m_maxPrice(maxPrice), m_strike(strike), m_intRate(intRate)
 			{
 			}
 			BlackScholesForwardMethod::BlackScholesForwardMethod(const BlackScholesForwardMethod& p)
-				: m_expiration(p.m_expiration),
-				m_maxPrice(p.m_maxPrice),
-				m_strike(p.m_strike),
-				m_intRate(p.m_intRate)
+				: m_expiration(p.m_expiration), m_maxPrice(p.m_maxPrice), m_strike(p.m_strike), m_intRate(p.m_intRate)
 			{
 			}
 			BlackScholesForwardMethod::~BlackScholesForwardMethod()
@@ -132,8 +126,7 @@ namespace za
 				return *this;
 			}
 
-			std::vector<double> BlackScholesForwardMethod::solve(double volatility, int nx,
-				int timeSteps)
+			std::vector<double> BlackScholesForwardMethod::solve(double volatility, int nx, int timeSteps)
 			{
 				double dt = m_expiration / (double)timeSteps;
 				double dx = m_maxPrice / (double)nx;

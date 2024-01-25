@@ -43,7 +43,19 @@ int main()
 	//mc::optionsProbabilities();
 	//mt::testThread();
 	//mt::parallelRandomWalk();
-	mt::mutexTestThread();
+	//mt::mutexTestThread();
+	//fo::functionPointer();
+	//fo::functionObject();
+	//eg::basicUsage();
+	//eg::basicLinearAlgebra1();
+	//eg::basicLinearAlgebra2();
+	//eg::basicLinearAlgebra3();
+	//eg::basicLinearAlgebra4();
+	//eg::basicLinearAlgebra5();
+	//eg::basicLinearAlgebra6();
+	//eg::basicLinearAlgebra7();
+	eg::advancedLinearAlgebra1();
+
 
 	return 0;
 }

@@ -168,7 +168,8 @@ namespace za
 				void monteCarloIntegration();
 				void randomWalk();
 				void optionsProbabilities();
-
+				void closeFormBlackHole();
+				void monteCarloBlackHole();
 			}
 
 #pragma endregion monteCarlo

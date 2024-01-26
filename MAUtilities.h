@@ -37,7 +37,8 @@
 #include <pthread.h>
 #include <Eigen/Dense>
 #include <Eigen/LU>
-
+//in oder to use pi constant value M_PI
+//#define _USE_MATH_DEFINES
 namespace za
 {
 	namespace ma
@@ -46,6 +47,7 @@ namespace za
 		{
 			static std::default_random_engine random_generator;
 			static boost::rand48 boost_random_generator;
+			static double pi() { return std::atan(1) * 4; }
 			//define constructor inside header 
 			template <class Res>
 			class MathFunction
@@ -155,6 +157,9 @@ namespace za
 				void setColBinary(int colNum);
 				LPSolver::ResultType solve(std::vector<double>& result, double& objValue) override;
 			};
+
+			//double pi() { return std::atan(1) * 4; }
+			/*constexpr double pi() { return std::atan(1) * 4; }*/
 		}
 	}
 

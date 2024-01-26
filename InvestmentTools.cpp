@@ -57,7 +57,9 @@ int main()
 	//eg::advancedLinearAlgebra1();
 	//eg::advancedLinearAlgebra2();
 	//eg::advancedLinearAlgebra3();
-	eg::advancedLinearAlgebra4();
+	//eg::advancedLinearAlgebra4();
+	//mc::closeFormBlackHole();
+	mc::monteCarloBlackHole();
 
 
 	return 0;

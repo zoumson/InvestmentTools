@@ -671,6 +671,48 @@ namespace za
 					std::cout << " between 28 and 32 prob: " << optP.probFinalPriceBetweenPrices(28, 32) << std::endl;
 				}
 
+				void closeFormBlackHole()
+				{
+					// first create parameter list 
+					double s = 100.0; // Option price
+					double k = 100.0; // Strike price
+					double r = 0.05; // Risk-free rate (5%)
+					double v = 0.2; // Vo l a t i l i t y of the und e r l y ing (20%)
+					double t = 1.0; // One year u n t i l e x p i r y
+					// Then we c a l c u l a t e the c a l l / put v a l u e s
+					double call = callPrice(s, k, r, v, t);
+					double put = putPrice(s, k, r, v, t);
+					// Fi n a l l y we output the parameters and p r i c e s
+					std::cout << "Underlying : " << s << std::endl;
+					std::cout << " Strike : " << k << std::endl;
+					std::cout << "Risk-Free Rate : " << r << std::endl;
+					std::cout << " Volatility : " << v << std::endl;
+					std::cout << "Maturity : " << t << std::endl;
+					std::cout << "Call Price : " << call << std::endl;
+					std::cout << "Put Price : " << put << std::endl;
+				}
+				void monteCarloBlackHole()
+				{
+					// first create parameter list 
+					int numSims = 10000000; // Number of s imulat ed a s s e t paths
+					double s = 100.0; // Option price
+					double k = 100.0; // Strike price
+					double r = 0.05; // Risk-free rate (5%)
+					double v = 0.2; // Vo l a t i l i t y of the und e r l y ing (20%)
+					double t = 1.0; // One year u n t i l e x p i r y
+					// Then we c a l c u l a t e the c a l l / put v a l u e s
+					double call = monteCarloCallPrice(numSims, s, k, r, v, t);
+					double put = monteCarloPutPrice(numSims, s, k, r, v, t);
+					// Fi n a l l y we output the parameters and p r i c e s
+					std::cout << "Underlying : " << s << std::endl;
+					std::cout << " Strike : " << k << std::endl;
+					std::cout << "Risk-Free Rate : " << r << std::endl;
+					std::cout << " Volatility : " << v << std::endl;
+					std::cout << "Maturity : " << t << std::endl;
+					std::cout << "Call Price : " << call << std::endl;
+					std::cout << "Put Price : " << put << std::endl;
+				}
+
 			}
 
 #pragma endregion monteCarlo
@@ -684,8 +726,7 @@ namespace za
 					ParallelOptionsProbabilities rw(100, 50.0, 52.0);
 					double r = rw.probFinishAboveStrike();
 					std:: cout << " result is " << r << std::endl;
-				}			
-				
+				}							
 				void parallelRandomWalk()
 				{
 					ParallelOptionsProbabilities rw(100, 50.0, 52.0);

@@ -1,6 +1,6 @@
 #pragma once
 #include "MAUtilities.h"
-
+#define _USE_MATH_DEFINES
 
 
 namespace za
@@ -82,11 +82,19 @@ namespace za
 #pragma endregion Example3
 
 #pragma region Example4
-
+			//c++ for quants 
+			//close form solution
+			double normPdf(const double& x);
+			double normCdf(const double& x);
+			double dJ(const int& j, const double& s, const double& k, const double& r, const double& v, const double& t);
+			double callPrice(const double& s, const double& k, const double& r, const double& v, const double& t);
+			double putPrice(const double& s, const double& k, const double& r, const double& v, const double& t);
 #pragma endregion Example4
 
 #pragma region Example5
-
+			double gaussianBoxMuller();
+			double monteCarloCallPrice(const int& numSims, const double& s, const double& k, const double& r, const double& v, const double& t);
+			double monteCarloPutPrice(const int& numSims, const double& s, const double& k, const double& r, const double& v, const double& t);
 #pragma endregion Example5
 
 #pragma region Example6

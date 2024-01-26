@@ -13,7 +13,39 @@ namespace za
 
 #pragma region Example1
 
+			void thomasAlgorithm(const std::vector<double>& a, const std::vector<double>& b, const std::vector<double>& c, const std::vector<double>& d, std::vector<double>& f)
+			{
+				size_t N = d.size();
+				//create the temporary vectors
+				//note that this is inefficient as it is possible to call 
+				//this function many times. A better implementation would 
+				//pass these temporary matrices by non-const reference to 
+				//to save axcess allocation and deallocation
+				std::vector<double> cStar(N, 0.0);
+				std::vector<double> dStar(N, 0.0);
 
+				//This updates the coefficients in the first row 
+				//note that we should be checking for division by zero here 
+				cStar[0] = c[0] / b[0];
+				dStar[0] = d[0] / b[0];
+
+				//create the cStar and the dStar coefficients in the forward sweeep 
+				for (int i = 1; i < N; i++)
+				{
+					double m = 1.0 / (b[i] - a[i] * cStar[i - 1]);
+					cStar[i] = c[i] * m;
+					dStar[i] = (d[i] - a[i] * dStar[i - 1]) * m;
+					
+				}
+				//This is the reverse sweep, used to update the solution vector f
+				//for (int i = N - 1; i > 0; i--)
+				for (int i = N - 1; i-- > 0; )
+				{
+					f[i] = dStar[i] - cStar[i] * d[i + 1];
+				}
+
+
+			}
 
 #pragma endregion Example1
 

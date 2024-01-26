@@ -216,9 +216,7 @@ namespace za
 				void advancedLinearAlgebra2();
 				void advancedLinearAlgebra3();
 				void advancedLinearAlgebra4();
-				void advancedLinearAlgebra5();
-				void advancedLinearAlgebra6();
-				void advancedLinearAlgebra7();
+
 
 			}
 

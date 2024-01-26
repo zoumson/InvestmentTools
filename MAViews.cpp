@@ -915,28 +915,122 @@ namespace za
 				}
 				void advancedLinearAlgebra2()
 				{
+					/*
+					* This function uses a tridiagonal system from a Boundary Value Problem (BVP)
+					* This is the discretisation of the 1D heat equation
+					*/
+
+					//create a Finite Difference Method(FDM) mesh with 13 points 
+					//using the Crank-Nicolson method to solve the discretised heat equation 
+					size_t N = 13;
+
+					double deltaX = 1.0 / static_cast<double>(N);
+
+					double deltaT = .001;
+					double r = deltaT / (deltaX * deltaX);
+
+					//std::vector<double> a(N - 1, -r / 2.0);
+					std::vector<double> a(N, -r / 2.0);
+					std::vector<double> b(N, 1.0 + r);
+					std::vector<double> c(N, -r / 2.0);
+					//std::vector<double> c(N - 1, -r / 2.0);
+					std::vector<double> d(N, 0.0);
+					std::vector<double> f(N, 0.0);
+
+					//Fill in the current time step initial value 
+				    //vector using three peaks with various amplitude 
+					f[5] = 1;
+					f[6] = 2;
+					f[7] = 1;
+
+					//f prior to a new time step 
+					std::cout << "f = (";
+
+					for (int i = 0; i < N; i++)
+					{
+						std::cout << f[i];
+						if (i < N - 1)
+						{
+							std::cout << ", ";
+						}
+					}
+
+					std::cout << ")" << std::endl << std::endl;
+					//Fill in the current time vector step vector d 
+					for (int i = 1; i < N - 1; i++)
+					{
+						d[i] = r * 0.5 * f[i + 1] + (1.0 - r) * f[i] + r * 0.5 * f[i - 1];
+					}
+					//now we solve the tridiagonal system
+					thomasAlgorithm(a, b, c, d, f);
+					//solution vector f 
+					std::cout << "f = (";
+
+					for (int i = 0; i < N; i++)
+					{
+						std::cout << f[i];
+						if (i < N - 1)
+						{
+							std::cout << ", ";
+						}
+					}
+					std::cout << ")" << std::endl << std::endl;
 
 				}
 				void advancedLinearAlgebra3()
 				{
+					/*
+					* Cholesky Decomposition
+					*/
+					typedef Eigen::Matrix<double, 4, 4> Matrix4x4;
+					
+					//Declare a 4 by 4 matrix with defined entries 
+					Matrix4x4 p;
+
+					p << 6, 3, 4, 8,
+						3, 6, 5, 1,
+						4, 5, 10, 7,
+						8, 1, 7, 25;
+					std::cout << "Matrix p: \n" << p << std::endl << std::endl;
+
+					//create L and L^T matrices (LLT)
+					Eigen::LLT<Matrix4x4> llt(p);
+
+					//lower triangular matrix 
+					Matrix4x4 l = llt.matrixL();
+					std::cout << "L matrix: \n" << l << std::endl << std::endl;
+					//l^T the upper triangular conjugate of L
+					Matrix4x4 u = l.transpose();
+					std::cout << "L^T matrix: \n" << u << std::endl << std::endl;
+					//check that LL^T = P
+					std::cout << "LL^T matrix: \n" << l * u << std::endl << std::endl;
+
+
 
 				}
 				void advancedLinearAlgebra4()
 				{
+					/*
+					* QR Decomposition
+					* Householder Reections method below.
+					*/
+
+					//Declare a 3 by 3 matrix with defined entries 
+					Eigen::MatrixXf p(3, 3);
+					p << 12, -51, 4,
+						6, 167, -68,
+						-4, 24, -41;
+
+					std::cout << "Matrix p: \n" << p << std::endl << std::endl;
+
+					//create the householder QR matrix object 
+					Eigen::HouseholderQR<Eigen::MatrixXf> qr(p);
+					Eigen::MatrixXf q = qr.householderQ();
+					std::cout << " Q matrix: \n" << q << std::endl << std::endl;;
+
 
 				}
-				void advancedLinearAlgebra5()
-				{
 
-				}
-				void advancedLinearAlgebra6()
-				{
-
-				}
-				void advancedLinearAlgebra7()
-				{
-
-				}
 			}
 
 #pragma endregion eigenLib

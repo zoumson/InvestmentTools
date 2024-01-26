@@ -54,7 +54,10 @@ int main()
 	//eg::basicLinearAlgebra5();
 	//eg::basicLinearAlgebra6();
 	//eg::basicLinearAlgebra7();
-	eg::advancedLinearAlgebra1();
+	//eg::advancedLinearAlgebra1();
+	//eg::advancedLinearAlgebra2();
+	//eg::advancedLinearAlgebra3();
+	eg::advancedLinearAlgebra4();
 
 
 	return 0;

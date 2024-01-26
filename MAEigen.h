@@ -12,7 +12,16 @@ namespace za
 		{
 
 #pragma region Example1
-
+			/// <summary>
+			/// Vectors a, b, c, and d are const. They will not be modified by the function.
+			/// Vector f(the solution) is non const and thus will be calulated and updated by the function
+			/// </summary>
+			/// <param name="a"></param>
+			/// <param name="b"></param>
+			/// <param name="c"></param>
+			/// <param name="d"></param>
+			/// <param name="f"></param>
+			void thomasAlgorithm(const std::vector<double>& a, const std::vector<double>& b, const std::vector<double>& c, const std::vector<double>& d, std::vector<double>& f);
 
 
 #pragma endregion Example1

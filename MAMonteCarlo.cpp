@@ -367,7 +367,49 @@ namespace za
 #pragma endregion Example5
 
 #pragma region Example6
+			double callDelta(const double s, const double k, const double r, const double v, const double t)
+			{
+				return normCdf(dJ(1, s, k, r, v, t));
+			}
+			double callGamma(const double s, const double k, const double r, const double v, const double t)
+			{
+				return normPdf(dJ(1, s, k, r, v, t)) / (s*v* std::sqrt(t));
 
+			}
+			double callVega(const double s, const double k, const double r, const double v, const double t)
+			{
+				return s*normPdf(dJ(1, s, k, r, v, t)) * std::sqrt(t);
+			}
+			double callTheta(const double s, const double k, const double r, const double v, const double t)
+			{
+				return -s * normPdf(dJ(1, s, k, r, v, t)) * v/ (2 * std::sqrt(t)) -r * k * std::exp(-r * t) * normCdf(dJ(2, s, k, r, v, t));
+			}
+			double callRho(const double s, const double k, const double r, const double v, const double t)
+			{
+				return k*t*std::exp(-r * t) * normCdf(dJ(2, s, k, r, v, t));
+			}
+
+			double putDelta(const double s, const double k, const double r, const double v, const double t)
+			{
+				return normCdf(dJ(1, s, k, r, v, t)) - 1;
+			}
+			double putGamma(const double s, const double k, const double r, const double v, const double t)
+			{
+				return callGamma(s, k, r, v, t);
+			}
+			double putVega(const double s, const double k, const double r, const double v, const double t)
+			{
+				return callVega(s, k, r, v, t);
+
+			}
+			double putTheta(const double s, const double k, const double r, const double v, const double t)
+			{
+				return -(s*normPdf(dJ(1, s, k, r, v, t)) *v) / (2* std::sqrt(t)) + r *k*std::exp(-r * t) * normCdf(-dJ(2, s, k, r, v, t));
+			}
+			double putRho(const double s, const double k, const double r, const double v, const double t)
+			{
+				return -t*k*std::exp(-r * t) * normCdf(-dJ(2, s, k, r, v, t));
+			}
 
 #pragma endregion Example6
 

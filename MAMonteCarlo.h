@@ -99,6 +99,17 @@ namespace za
 
 #pragma region Example6
 
+			double callDelta(const double s, const double k, const double r, const double v, const double t);
+			double callGamma(const double s, const double k, const double r, const double v, const double t);
+			double callVega(const double s, const double k, const double r, const double v, const double t);
+			double callTheta(const double s, const double k, const double r, const double v, const double t);
+			double callRho(const double s, const double k, const double r, const double v, const double t);
+
+			double putDelta(const double s, const double k, const double r, const double v, const double t);
+			double putGamma(const double s, const double k, const double r, const double v, const double t);
+			double putVega(const double s, const double k, const double r, const double v, const double t);
+			double putTheta(const double s, const double k, const double r, const double v, const double t);
+			double putRho(const double s, const double k, const double r, const double v, const double t);
 
 #pragma endregion Example6
 

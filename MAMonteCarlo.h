@@ -82,34 +82,34 @@ namespace za
 #pragma endregion Example3
 
 #pragma region Example4
-			//c++ for quants 
-			//close form solution
-			double normPdf(const double& x);
-			double normCdf(const double& x);
-			double dJ(const int& j, const double& s, const double& k, const double& r, const double& v, const double& t);
-			double callPrice(const double& s, const double& k, const double& r, const double& v, const double& t);
-			double putPrice(const double& s, const double& k, const double& r, const double& v, const double& t);
+			////c++ for quants 
+			////close form solution
+			//double normPdf(const double& x);
+			//double normCdf(const double& x);
+			//double dJ(const int& j, const double& s, const double& k, const double& r, const double& v, const double& t);
+			//double closeFormCallPrice(const double& s, const double& k, const double& r, const double& v, const double& t);
+			//double closeFormPutPrice(const double& s, const double& k, const double& r, const double& v, const double& t);
 #pragma endregion Example4
 
 #pragma region Example5
-			double gaussianBoxMuller();
-			double monteCarloCallPrice(const int& numSims, const double& s, const double& k, const double& r, const double& v, const double& t);
-			double monteCarloPutPrice(const int& numSims, const double& s, const double& k, const double& r, const double& v, const double& t);
+			//double gaussianBoxMuller();
+			//double monteCarloCallPrice(const int& numSims, const double& s, const double& k, const double& r, const double& v, const double& t);
+			//double monteCarloPutPrice(const int& numSims, const double& s, const double& k, const double& r, const double& v, const double& t);
 #pragma endregion Example5
 
 #pragma region Example6
 
-			double callDelta(const double s, const double k, const double r, const double v, const double t);
-			double callGamma(const double s, const double k, const double r, const double v, const double t);
-			double callVega(const double s, const double k, const double r, const double v, const double t);
-			double callTheta(const double s, const double k, const double r, const double v, const double t);
-			double callRho(const double s, const double k, const double r, const double v, const double t);
+			//double callDelta(const double s, const double k, const double r, const double v, const double t);
+			//double callGamma(const double s, const double k, const double r, const double v, const double t);
+			//double callVega(const double s, const double k, const double r, const double v, const double t);
+			//double callTheta(const double s, const double k, const double r, const double v, const double t);
+			//double callRho(const double s, const double k, const double r, const double v, const double t);
 
-			double putDelta(const double s, const double k, const double r, const double v, const double t);
-			double putGamma(const double s, const double k, const double r, const double v, const double t);
-			double putVega(const double s, const double k, const double r, const double v, const double t);
-			double putTheta(const double s, const double k, const double r, const double v, const double t);
-			double putRho(const double s, const double k, const double r, const double v, const double t);
+			//double putDelta(const double s, const double k, const double r, const double v, const double t);
+			//double putGamma(const double s, const double k, const double r, const double v, const double t);
+			//double putVega(const double s, const double k, const double r, const double v, const double t);
+			//double putTheta(const double s, const double k, const double r, const double v, const double t);
+			//double putRho(const double s, const double k, const double r, const double v, const double t);
 
 #pragma endregion Example6
 

@@ -133,7 +133,12 @@ namespace za
 				using namespace za::ma::od;
 				void eulersMethod();
 				void rungeKuttaODEMethod();
+				void blackScholescloseForm();
 				void blackScholesForwardMethod();
+				void blackScholesGreeksCloseForm();
+				void blackScholesMonteCarlo();
+				void blackScholesGreeksFiniteDifferenceMethod();
+				void blackScholesGreeksMonteCarloFDM();
 			}
 
 #pragma endregion OdePde
@@ -168,8 +173,9 @@ namespace za
 				void monteCarloIntegration();
 				void randomWalk();
 				void optionsProbabilities();
-				void closeFormBlackHole();
-				void monteCarloBlackHole();
+				//void closeFormBlackHole();
+				//void monteCarloBlackHole();
+				//void calcGreeks();
 			}
 
 #pragma endregion monteCarlo

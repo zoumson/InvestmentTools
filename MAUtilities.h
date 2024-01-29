@@ -47,7 +47,8 @@ namespace za
 		{
 			static std::default_random_engine random_generator;
 			static boost::rand48 boost_random_generator;
-			static double pi() { return std::atan(1) * 4; }
+			double pi();
+			double gaussianBoxMuller();
 			//define constructor inside header 
 			template <class Res>
 			class MathFunction

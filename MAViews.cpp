@@ -495,6 +495,149 @@ namespace za
 						std::cout << " " << s << " " << u[i + numDays * (numSteps - 1)] << std::endl;
 					}
 				}
+								
+				void blackScholescloseForm()
+				{
+					// first create parameter list 
+					double s = 100.0; // Option price
+					double k = 100.0; // Strike price
+					double r = 0.05; // Risk-free rate (5%)
+					double v = 0.2; // volatility of the underlying (20%)
+					double t = 1.0; // One year untill expiry 
+					double call = callPriceCloseForm(s, k, r, v, t);
+					double put = putPriceCloseForm(s, k, r, v, t);
+					// Fi n a l l y we output the parameters and p r i c e s
+					std::cout << "Underlying : " << s << std::endl;
+					std::cout << " Strike : " << k << std::endl;
+					std::cout << "Risk-Free Rate : " << r << std::endl;
+					std::cout << " Volatility : " << v << std::endl;
+					std::cout << "Maturity : " << t << std::endl;
+					std::cout << "Call Price : " << call << std::endl;
+					std::cout << "Put Price : " << put << std::endl;
+				}				
+				
+				void blackScholesMonteCarlo()
+				{
+					// first create parameter list 
+					int numSims = 10000000; // Number of s imulat ed a s s e t paths
+					double s = 100.0; // Option price
+					double k = 100.0; // Strike price
+					double r = 0.05; // Risk-free rate (5%)
+					double v = 0.2; // volatility of the underlying (20%)
+					double t = 1.0; // One year untill expiry 
+					// Then we calculate the call/put values 
+					double call = callPriceMonteCarlo(numSims, s, k, r, v, t);
+					double put = putPriceMonteCarlo(numSims, s, k, r, v, t);
+					// Finally we output the parameters and prices 
+					std::cout << "Underlying : " << s << std::endl;
+					std::cout << " Strike : " << k << std::endl;
+					std::cout << "Risk-Free Rate : " << r << std::endl;
+					std::cout << " Volatility : " << v << std::endl;
+					std::cout << "Maturity : " << t << std::endl;
+					std::cout << "Call Price : " << call << std::endl;
+					std::cout << "Put Price : " << put << std::endl;
+				}
+				
+				void blackScholesGreeksCloseForm()
+				{
+						// first create parameter list 
+						double s = 100.0; // Option price
+						double k = 100.0; // Strike price
+						double r = 0.05; // Risk-free rate (5%)
+						double v = 0.2; // volatility of the underlying (20%)
+						double t = 1.0; // One year untill expiry 
+						// Then we calculate the call/put values  and greeks 
+						double callVal = callPriceCloseForm(s, k, r, v, t);
+						double callDeltaVal = callDeltaCloseForm(s, k, r, v, t);
+						double callGammaVal = callGammaCloseForm(s, k, r, v, t);
+						double callVegaVal = callVegaCloseForm(s, k, r, v, t);
+						double callThetaVal = callThetaCloseForm(s, k, r, v, t);
+						double callRhoVal = callRhoCloseForm(s, k, r, v, t);
+						
+						double putVal = putPriceCloseForm(s, k, r, v, t);
+						double putDeltaVal = putDeltaCloseForm(s, k, r, v, t);
+						double putGammaVal = putGammaCloseForm(s, k, r, v, t);
+						double putVegaVal = putVegaCloseForm(s, k, r, v, t);
+						double putThetaVal = putThetaCloseForm(s, k, r, v, t);
+						double putRhoVal = putRhoCloseForm(s, k, r, v, t);
+
+						//double put = monteCarloPutPrice(numSims, s, k, r, v, t);
+						// Finally we output the parameters and prices 
+						std::cout << "Underlying : " << s << std::endl;
+						std::cout << " Strike : " << k << std::endl;
+						std::cout << "Risk-Free Rate : " << r << std::endl;
+						std::cout << " Volatility : " << v << std::endl;
+						std::cout << "Maturity : " << t << std::endl;
+
+
+						std::cout << "Call Price : " << callVal << std::endl;
+						std::cout << "Call Delta : " << callDeltaVal << std::endl;
+						std::cout << "Call Gamma : " << callGammaVal << std::endl;
+						std::cout << "Call Vega : " << callVegaVal << std::endl;
+						std::cout << "Call Theta : " << callThetaVal << std::endl;
+						std::cout << "Call Rho : " << callRhoVal << std::endl;
+
+						std::cout << "Put Price : " << putVal << std::endl;
+						std::cout << "Put Delta : " << putDeltaVal << std::endl;
+						std::cout << "Put Gamma : " << putGammaVal << std::endl;
+						std::cout << "Put Vega : " << putVegaVal << std::endl;
+						std::cout << "Put Theta : " << putThetaVal << std::endl;
+						std::cout << "Put Rho : " << putRhoVal << std::endl;
+				}	
+
+				void blackScholesGreeksFiniteDifferenceMethod()
+				{
+					// first create parameter list 
+					double s = 100.0; // Option price
+					double deltaS = 0.001;
+					double k = 100.0; // Strike price
+					double r = 0.05; // Risk-free rate (5%)
+					double v = 0.2; // volatility of the underlying (20%)
+					double t = 1.0; // One year untill expiry 
+					double callDeltaVal = callDeltaFDM(s, k, r, v, t, deltaS);
+					double callGammaVal = callGammaFDM(s, k, r, v, t, deltaS);
+					//double put = monteCarloPutPrice(numSims, s, k, r, v, t);
+										// Finally we output the parameters and prices 
+					std::cout << "Underlying : " << s << std::endl;
+					std::cout << "Delta Underlying : " << deltaS << std::endl;
+					std::cout << " Strike : " << k << std::endl;
+					std::cout << "Risk-Free Rate : " << r << std::endl;
+					std::cout << " Volatility : " << v << std::endl;
+					std::cout << "Maturity : " << t << std::endl;
+
+
+					std::cout << "Call Delta : " << callDeltaVal << std::endl;
+					std::cout << "Call Gamma : " << callGammaVal << std::endl;
+
+				}
+
+				void blackScholesGreeksMonteCarloFDM()
+				{
+					// first create parameter list 
+					double s = 100.0; // Option price
+					double deltaS = 0.001;
+					double k = 100.0; // Strike price
+					double r = 0.05; // Risk-free rate (5%)
+					double v = 0.2; // volatility of the underlying (20%)
+					double t = 1.0; // One year untill expiry 
+					int numSim = 100000000;
+					double callDeltaVal = callDeltaMonteCarloFDM(numSim, s, k, r, v, t, deltaS);
+					double callGammaVal = callGammaMonteCarloFDM(numSim, s, k, r, v, t, deltaS);
+					//double put = monteCarloPutPrice(numSims, s, k, r, v, t);
+										// Finally we output the parameters and prices 
+					std::cout << "Underlying : " << s << std::endl;
+					std::cout << "Delta Underlying : " << deltaS << std::endl;
+					std::cout << " Strike : " << k << std::endl;
+					std::cout << "Risk-Free Rate : " << r << std::endl;
+					std::cout << " Volatility : " << v << std::endl;
+					std::cout << "Maturity : " << t << std::endl;
+
+
+					std::cout << "Call Delta : " << callDeltaVal << std::endl;
+					std::cout << "Call Gamma : " << callGammaVal << std::endl;
+
+				}
+					
 			}
 
 #pragma endregion OdePde
@@ -671,47 +814,99 @@ namespace za
 					std::cout << " between 28 and 32 prob: " << optP.probFinalPriceBetweenPrices(28, 32) << std::endl;
 				}
 
-				void closeFormBlackHole()
-				{
-					// first create parameter list 
-					double s = 100.0; // Option price
-					double k = 100.0; // Strike price
-					double r = 0.05; // Risk-free rate (5%)
-					double v = 0.2; // Vo l a t i l i t y of the und e r l y ing (20%)
-					double t = 1.0; // One year u n t i l e x p i r y
-					// Then we c a l c u l a t e the c a l l / put v a l u e s
-					double call = callPrice(s, k, r, v, t);
-					double put = putPrice(s, k, r, v, t);
-					// Fi n a l l y we output the parameters and p r i c e s
-					std::cout << "Underlying : " << s << std::endl;
-					std::cout << " Strike : " << k << std::endl;
-					std::cout << "Risk-Free Rate : " << r << std::endl;
-					std::cout << " Volatility : " << v << std::endl;
-					std::cout << "Maturity : " << t << std::endl;
-					std::cout << "Call Price : " << call << std::endl;
-					std::cout << "Put Price : " << put << std::endl;
-				}
-				void monteCarloBlackHole()
-				{
-					// first create parameter list 
-					int numSims = 10000000; // Number of s imulat ed a s s e t paths
-					double s = 100.0; // Option price
-					double k = 100.0; // Strike price
-					double r = 0.05; // Risk-free rate (5%)
-					double v = 0.2; // Vo l a t i l i t y of the und e r l y ing (20%)
-					double t = 1.0; // One year u n t i l e x p i r y
-					// Then we c a l c u l a t e the c a l l / put v a l u e s
-					double call = monteCarloCallPrice(numSims, s, k, r, v, t);
-					double put = monteCarloPutPrice(numSims, s, k, r, v, t);
-					// Fi n a l l y we output the parameters and p r i c e s
-					std::cout << "Underlying : " << s << std::endl;
-					std::cout << " Strike : " << k << std::endl;
-					std::cout << "Risk-Free Rate : " << r << std::endl;
-					std::cout << " Volatility : " << v << std::endl;
-					std::cout << "Maturity : " << t << std::endl;
-					std::cout << "Call Price : " << call << std::endl;
-					std::cout << "Put Price : " << put << std::endl;
-				}
+
+				//void closeFormBlackHole()
+				//{
+				//	// first create parameter list 
+				//	double s = 100.0; // Option price
+				//	double k = 100.0; // Strike price
+				//	double r = 0.05; // Risk-free rate (5%)
+				//	double v = 0.2; // volatility of the underlying (20%)
+				//	double t = 1.0; // One year untill expiry 
+				//	double call = closeFormCallPrice(s, k, r, v, t);
+				//	double put = closeFormPutPrice(s, k, r, v, t);
+				//	// Fi n a l l y we output the parameters and p r i c e s
+				//	std::cout << "Underlying : " << s << std::endl;
+				//	std::cout << " Strike : " << k << std::endl;
+				//	std::cout << "Risk-Free Rate : " << r << std::endl;
+				//	std::cout << " Volatility : " << v << std::endl;
+				//	std::cout << "Maturity : " << t << std::endl;
+				//	std::cout << "Call Price : " << call << std::endl;
+				//	std::cout << "Put Price : " << put << std::endl;
+				//}
+				//
+				//
+				//void monteCarloBlackHole()
+				//{
+				//	// first create parameter list 
+				//	int numSims = 10000000; // Number of s imulat ed a s s e t paths
+				//	double s = 100.0; // Option price
+				//	double k = 100.0; // Strike price
+				//	double r = 0.05; // Risk-free rate (5%)
+				//	double v = 0.2; // volatility of the underlying (20%)
+				//	double t = 1.0; // One year untill expiry 
+				//	// Then we calculate the call/put values 
+				//	double call = monteCarloCallPrice(numSims, s, k, r, v, t);
+				//	double put = monteCarloPutPrice(numSims, s, k, r, v, t);
+				//	// Finally we output the parameters and prices 
+				//	std::cout << "Underlying : " << s << std::endl;
+				//	std::cout << " Strike : " << k << std::endl;
+				//	std::cout << "Risk-Free Rate : " << r << std::endl;
+				//	std::cout << " Volatility : " << v << std::endl;
+				//	std::cout << "Maturity : " << t << std::endl;
+				//	std::cout << "Call Price : " << call << std::endl;
+				//	std::cout << "Put Price : " << put << std::endl;
+				//}		
+
+
+				//void calcGreeks()
+				//{
+				//	// first create parameter list 
+				//	double s = 100.0; // Option price
+				//	double k = 100.0; // Strike price
+				//	double r = 0.05; // Risk-free rate (5%)
+				//	double v = 0.2; // volatility of the underlying (20%)
+				//	double t = 1.0; // One year untill expiry 
+				//	// Then we calculate the call/put values  and greeks 
+				//	double callVal = closeFormCallPrice(s, k, r, v, t);
+				//	double callDeltaVal = callDelta(s, k, r, v, t);
+				//	double callGammaVal = callGamma(s, k, r, v, t);
+				//	double callVegaVal = callVega(s, k, r, v, t);
+				//	double callThetaVal = callTheta(s, k, r, v, t);
+				//	double callRhoVal = callRho(s, k, r, v, t);					
+				//	
+				//	double putVal = closeFormPutPrice(s, k, r, v, t);
+				//	double putDeltaVal = putDelta(s, k, r, v, t);
+				//	double putGammaVal = putGamma(s, k, r, v, t);
+				//	double putVegaVal = putVega(s, k, r, v, t);
+				//	double putThetaVal = putTheta(s, k, r, v, t);
+				//	double putRhoVal = putRho(s, k, r, v, t);
+		
+				//	//double put = monteCarloPutPrice(numSims, s, k, r, v, t);
+				//	// Finally we output the parameters and prices 
+				//	std::cout << "Underlying : " << s << std::endl;
+				//	std::cout << " Strike : " << k << std::endl;
+				//	std::cout << "Risk-Free Rate : " << r << std::endl;
+				//	std::cout << " Volatility : " << v << std::endl;
+				//	std::cout << "Maturity : " << t << std::endl;
+
+
+				//	std::cout << "Call Price : " << callVal << std::endl;
+				//	std::cout << "Call Delta : " << callDeltaVal << std::endl;
+				//	std::cout << "Call Gamma : " << callGammaVal << std::endl;
+				//	std::cout << "Call Vega : " << callVegaVal << std::endl;
+				//	std::cout << "Call Theta : " << callThetaVal << std::endl;
+				//	std::cout << "Call Rho : " << callRhoVal << std::endl;
+
+				//	std::cout << "Put Price : " << putVal << std::endl;
+				//	std::cout << "Put Delta : " << putDeltaVal << std::endl;
+				//	std::cout << "Put Gamma : " << putGammaVal << std::endl;
+				//	std::cout << "Put Vega : " << putVegaVal << std::endl;
+				//	std::cout << "Put Theta : " << putThetaVal << std::endl;
+				//	std::cout << "Put Rho : " << putRhoVal << std::endl;
+				//	
+				//}
+
 
 			}
 

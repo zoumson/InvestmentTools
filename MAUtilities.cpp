@@ -8,6 +8,26 @@ namespace za
 	{
 		namespace com
 		{
+			double pi() { return std::atan(1) * 4; };
+
+			double gaussianBoxMuller()
+			{
+				double x = 0.0;
+				double y = 0.0;
+				double euclidSq = 0.0;
+				//continue generating two uniform random variables 
+				//until the square of their euclidean distance is less than unity 
+				do
+				{
+					x = 2.0 * rand() / static_cast<double>(RAND_MAX) - 1;
+					y = 2.0 * rand() / static_cast<double>(RAND_MAX) - 1;
+
+					euclidSq = x * x + y * y;
+				} while (euclidSq >= 1.0);
+
+				return x * std::sqrt(-2 * std::log(euclidSq) / euclidSq);
+
+			}
 
 			Matrix::Matrix(int size)
 			{
@@ -346,6 +366,7 @@ namespace za
 				}
 				return LPSolver::FEASIBLE;
 			}
+
 		}
 	}
 

@@ -267,149 +267,158 @@ namespace za
 #pragma endregion Example3
 
 #pragma region Example4
-			//different book
-			//c++ for quants 
-			//close form solution
 
-			double normPdf(const double& x)
-			{
-//#define _USE_MATH_DEFINES
 
-				double M_PI = za::ma::com::pi();
-			
-				return (1.0 / std::pow(2 * M_PI, 0.5))*std::exp(-0.5*x*x);
-			}
-			//an approximation to the cumulative distribution function 
-			//for the standard normal distribution 
-			//note: this is a recursive function 
-			double normCdf(const double& x)
-			{
-				double M_PI = za::ma::com::pi();
-				double k = 1.0 / (1.0 + 0.2316419 * x);
-				double kSum = k*(0.319381530 + k*(-0.356563782 + k*(1.781477937 + k*(-1.821255978 + 1.330274429* k))));
+			////different book
+			////c++ for quants 
+			////close form solution
 
-				if (x >= 0.0)
-				{
-					return (1.0 -(1.0 / (std::pow(2* M_PI, 0.5))) * exp(-0.5*x*x) * kSum);
-				}
-				else
-				{
-					return 1.0 - normCdf(-x);
-				}
-			}
-			//this term appears in the closed form solution for the european cal or put price 
-			double dJ(const int& j, const double& s, const double& k, const double& r, const double& v, const double& t)
-			{
-				return (std::log(s / k) + (r + (std::pow(-1, j - 1)) * 0.5* v*v) *t) / (v *(std::pow(t, 0.5)));
+			//double normPdf(const double& x)
+			//{
 
-			}
-			//vanilla european call 
-			double callPrice(const double& s, const double& k, const double& r, const double& v, const double& t)
-			{
-				return s * normCdf(dJ(1, s, k, r, v, t))- k*exp(-r * t) * normCdf(dJ(2, s, k, r, v, t));
+			//	double M_PI = za::ma::com::pi();
+			//
+			//	return (1.0 / std::pow(2 * M_PI, 0.5))*std::exp(-0.5*x*x);
+			//}
+			////an approximation to the cumulative distribution function 
+			////for the standard normal distribution 
+			////note: this is a recursive function 
+			//double normCdf(const double& x)
+			//{
+			//	double M_PI = za::ma::com::pi();
+			//	double k = 1.0 / (1.0 + 0.2316419 * x);
+			//	double kSum = k*(0.319381530 + k*(-0.356563782 + k*(1.781477937 + k*(-1.821255978 + 1.330274429* k))));
 
-			}
-			//vanilla european put 
-			double putPrice(const double& s, const double& k, const double& r, const double& v, const double& t)
-			{
-				return -s* normCdf(-dJ(1, s, k, r, v, t)) + k*exp(-r *t) * normCdf(-dJ(2, s, k, r, v, t));
-			}
+			//	if (x >= 0.0)
+			//	{
+			//		return (1.0 -(1.0 / (std::pow(2* M_PI, 0.5))) * exp(-0.5*x*x) * kSum);
+			//	}
+			//	else
+			//	{
+			//		return 1.0 - normCdf(-x);
+			//	}
+			//}
+			////this term appears in the closed form solution for the european cal or put price 
+			//double dJ(const int& j, const double& s, const double& k, const double& r, const double& v, const double& t)
+			//{
+			//	return (std::log(s / k) + (r + (std::pow(-1, j - 1)) * 0.5* v*v) *t) / (v *(std::pow(t, 0.5)));
+			//	
+			//}
+			////vanilla european call 
+			//double closeFormCallPrice(const double& s, const double& k, const double& r, const double& v, const double& t)
+			//{
+			//	return s * normCdf(dJ(1, s, k, r, v, t))- k*exp(-r * t) * normCdf(dJ(2, s, k, r, v, t));
+
+			//}
+			////vanilla european put 
+			//double closeFormPutPrice(const double& s, const double& k, const double& r, const double& v, const double& t)
+			//{
+			//	return -s* normCdf(-dJ(1, s, k, r, v, t)) + k*exp(-r *t) * normCdf(-dJ(2, s, k, r, v, t));
+			//}
+
+
 #pragma endregion Example4
 
 #pragma region Example5
-			double gaussianBoxMuller()
-			{
-				double x = 0.0;
-				double y = 0.0;
-				double euclidSq = 0.0;
-				//continue generating two uniform random variables 
-				//until the square of their euclidean distance is less than unity 
-				do
-				{
-					x = 2.0 * rand() / static_cast<double>(RAND_MAX) - 1;
-					y = 2.0 * rand() / static_cast<double>(RAND_MAX) - 1;
+			//double gaussianBoxMuller()
+			//{
+			//	double x = 0.0;
+			//	double y = 0.0;
+			//	double euclidSq = 0.0;
+			//	//continue generating two uniform random variables 
+			//	//until the square of their euclidean distance is less than unity 
+			//	do
+			//	{
+			//		x = 2.0 * rand() / static_cast<double>(RAND_MAX) - 1;
+			//		y = 2.0 * rand() / static_cast<double>(RAND_MAX) - 1;
 
-					euclidSq = x * x + y * y;
-				} while (euclidSq >= 1.0);
+			//		euclidSq = x * x + y * y;
+			//	} while (euclidSq >= 1.0);
 
-				return x * std::sqrt(-2 * std::log(euclidSq) / euclidSq);
+			//	return x * std::sqrt(-2 * std::log(euclidSq) / euclidSq);
 
-			}
+			//}
 
-			double monteCarloCallPrice(const int& numSims, const double& s, const double& k, const double& r, const double& v, const double& t)
-			{
-				double sAdjust = s * exp(t * (r - 0.5 * v * v));
-				double sCur = 0.0;
-				double payoffSum = 0.0;
-				for (int i = 0; i < numSims; i++)
-				{
-					double gaussBm = gaussianBoxMuller();
-					sCur = sAdjust * std::exp(sqrt(v * v * t) * gaussBm);
-					payoffSum += std::max(sCur - k, 0.0);
-				}
+			//double monteCarloCallPrice(const int& numSims, const double& s, const double& k, const double& r, const double& v, const double& t)
+			//{
+			//	double sAdjust = s * exp(t * (r - 0.5 * v * v));
+			//	double sCur = 0.0;
+			//	double payoffSum = 0.0;
+			//	for (int i = 0; i < numSims; i++)
+			//	{
+			//		double gaussBm = gaussianBoxMuller();
+			//		sCur = sAdjust * std::exp(sqrt(v * v * t) * gaussBm);
+			//		payoffSum += std::max(sCur - k, 0.0);
+			//	}
 
-				return (payoffSum / static_cast<double>(numSims)) * std::exp(-r * t);
-			}
-			double monteCarloPutPrice(const int& numSims, const double& s, const double& k, const double& r, const double& v, const double& t)
-			{
-				double sAdjust = s*exp(t*(r - 0.5*v*v));
-				double sCur = 0.0;
-				double payoffSum = 0.0;
-				for (int i = 0; i < numSims; i++) 
-				{ 
-					double gaussBm = gaussianBoxMuller();
-					sCur = sAdjust * std::exp(sqrt(v*v*t) * gaussBm);
-					payoffSum += std::max(k - sCur, 0.0);
-				}
+			//	return (payoffSum / static_cast<double>(numSims)) * std::exp(-r * t);
+			//}
+			//double monteCarloPutPrice(const int& numSims, const double& s, const double& k, const double& r, const double& v, const double& t)
+			//{
+			//	double sAdjust = s*exp(t*(r - 0.5*v*v));
+			//	double sCur = 0.0;
+			//	double payoffSum = 0.0;
+			//	for (int i = 0; i < numSims; i++) 
+			//	{ 
+			//		double gaussBm = gaussianBoxMuller();
+			//		sCur = sAdjust * std::exp(sqrt(v*v*t) * gaussBm);
+			//		payoffSum += std::max(k - sCur, 0.0);
+			//	}
 
-				return (payoffSum / static_cast<double>(numSims)) *std:: exp(-r * t);
-			}
+			//	return (payoffSum / static_cast<double>(numSims)) *std:: exp(-r * t);
+			//}
+
 #pragma endregion Example5
 
 #pragma region Example6
-			double callDelta(const double s, const double k, const double r, const double v, const double t)
-			{
-				return normCdf(dJ(1, s, k, r, v, t));
-			}
-			double callGamma(const double s, const double k, const double r, const double v, const double t)
-			{
-				return normPdf(dJ(1, s, k, r, v, t)) / (s*v* std::sqrt(t));
 
-			}
-			double callVega(const double s, const double k, const double r, const double v, const double t)
-			{
-				return s*normPdf(dJ(1, s, k, r, v, t)) * std::sqrt(t);
-			}
-			double callTheta(const double s, const double k, const double r, const double v, const double t)
-			{
-				return -s * normPdf(dJ(1, s, k, r, v, t)) * v/ (2 * std::sqrt(t)) -r * k * std::exp(-r * t) * normCdf(dJ(2, s, k, r, v, t));
-			}
-			double callRho(const double s, const double k, const double r, const double v, const double t)
-			{
-				return k*t*std::exp(-r * t) * normCdf(dJ(2, s, k, r, v, t));
-			}
 
-			double putDelta(const double s, const double k, const double r, const double v, const double t)
-			{
-				return normCdf(dJ(1, s, k, r, v, t)) - 1;
-			}
-			double putGamma(const double s, const double k, const double r, const double v, const double t)
-			{
-				return callGamma(s, k, r, v, t);
-			}
-			double putVega(const double s, const double k, const double r, const double v, const double t)
-			{
-				return callVega(s, k, r, v, t);
 
-			}
-			double putTheta(const double s, const double k, const double r, const double v, const double t)
-			{
-				return -(s*normPdf(dJ(1, s, k, r, v, t)) *v) / (2* std::sqrt(t)) + r *k*std::exp(-r * t) * normCdf(-dJ(2, s, k, r, v, t));
-			}
-			double putRho(const double s, const double k, const double r, const double v, const double t)
-			{
-				return -t*k*std::exp(-r * t) * normCdf(-dJ(2, s, k, r, v, t));
-			}
+			//double callDelta(const double s, const double k, const double r, const double v, const double t)
+			//{
+			//	return normCdf(dJ(1, s, k, r, v, t));
+			//}
+			//double callGamma(const double s, const double k, const double r, const double v, const double t)
+			//{
+			//	return normPdf(dJ(1, s, k, r, v, t)) / (s*v* std::sqrt(t));
+
+			//}
+			//double callVega(const double s, const double k, const double r, const double v, const double t)
+			//{
+			//	return s*normPdf(dJ(1, s, k, r, v, t)) * std::sqrt(t);
+			//}
+			//double callTheta(const double s, const double k, const double r, const double v, const double t)
+			//{
+			//	return -s * normPdf(dJ(1, s, k, r, v, t)) * v/ (2 * std::sqrt(t)) -r * k * std::exp(-r * t) * normCdf(dJ(2, s, k, r, v, t));
+			//}
+			//double callRho(const double s, const double k, const double r, const double v, const double t)
+			//{
+			//	return k*t*std::exp(-r * t) * normCdf(dJ(2, s, k, r, v, t));
+			//}
+
+			//double putDelta(const double s, const double k, const double r, const double v, const double t)
+			//{
+			//	return normCdf(dJ(1, s, k, r, v, t)) - 1;
+			//}
+			//double putGamma(const double s, const double k, const double r, const double v, const double t)
+			//{
+			//	return callGamma(s, k, r, v, t);
+			//}
+			//double putVega(const double s, const double k, const double r, const double v, const double t)
+			//{
+			//	return callVega(s, k, r, v, t);
+
+			//}
+			//double putTheta(const double s, const double k, const double r, const double v, const double t)
+			//{
+			//	return -(s*normPdf(dJ(1, s, k, r, v, t)) *v) / (2* std::sqrt(t)) + r *k*std::exp(-r * t) * normCdf(-dJ(2, s, k, r, v, t));
+			//}
+			//double putRho(const double s, const double k, const double r, const double v, const double t)
+			//{
+			//	return -t*k*std::exp(-r * t) * normCdf(-dJ(2, s, k, r, v, t));
+			//}
+
+
 
 #pragma endregion Example6
 

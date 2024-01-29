@@ -183,25 +183,230 @@ namespace za
 #pragma endregion Example3
 
 #pragma region Example4
+			//different book
+//c++ for quants 
+//close form solution
 
+			double normPdf(const double& x)
+			{
+				//#define _USE_MATH_DEFINES
+
+				double M_PI = za::ma::com::pi();
+
+				return (1.0 / std::pow(2 * M_PI, 0.5)) * std::exp(-0.5 * x * x);
+			}
+			//an approximation to the cumulative distribution function 
+			//for the standard normal distribution 
+			//note: this is a recursive function 
+			double normCdf(const double& x)
+			{
+				double M_PI = za::ma::com::pi();
+				double k = 1.0 / (1.0 + 0.2316419 * x);
+				double kSum = k * (0.319381530 + k * (-0.356563782 + k * (1.781477937 + k * (-1.821255978 + 1.330274429 * k))));
+
+				if (x >= 0.0)
+				{
+					return (1.0 - (1.0 / (std::pow(2 * M_PI, 0.5))) * exp(-0.5 * x * x) * kSum);
+				}
+				else
+				{
+					return 1.0 - normCdf(-x);
+				}
+			}
+			//this term appears in the closed form solution for the european cal or put price 
+			double dJ(const int& j, const double& s, const double& k, const double& r, const double& v, const double& t)
+			{
+				return (std::log(s / k) + (r + (std::pow(-1, j - 1)) * 0.5 * v * v) * t) / (v * (std::pow(t, 0.5)));
+
+			}
+			//vanilla european call 
+			double callPriceCloseForm(const double& s, const double& k, const double& r, const double& v, const double& t)
+			{
+				return s * normCdf(dJ(1, s, k, r, v, t)) - k * exp(-r * t) * normCdf(dJ(2, s, k, r, v, t));
+
+			}
+			//vanilla european put 
+			double putPriceCloseForm(const double& s, const double& k, const double& r, const double& v, const double& t)
+			{
+				return -s * normCdf(-dJ(1, s, k, r, v, t)) + k * exp(-r * t) * normCdf(-dJ(2, s, k, r, v, t));
+			}
 #pragma endregion Example4
 
 #pragma region Example5
 
+			double callDeltaCloseForm(const double s, const double k, const double r, const double v, const double t)
+			{
+				return normCdf(dJ(1, s, k, r, v, t));
+			}
+			double callGammaCloseForm(const double s, const double k, const double r, const double v, const double t)
+			{
+				return normPdf(dJ(1, s, k, r, v, t)) / (s*v* std::sqrt(t));
+
+			}
+			double callVegaCloseForm(const double s, const double k, const double r, const double v, const double t)
+			{
+				return s*normPdf(dJ(1, s, k, r, v, t)) * std::sqrt(t);
+			}
+			double callThetaCloseForm(const double s, const double k, const double r, const double v, const double t)
+			{
+				return -s * normPdf(dJ(1, s, k, r, v, t)) * v/ (2 * std::sqrt(t)) -r * k * std::exp(-r * t) * normCdf(dJ(2, s, k, r, v, t));
+			}
+			double callRhoCloseForm(const double s, const double k, const double r, const double v, const double t)
+			{
+				return k*t*std::exp(-r * t) * normCdf(dJ(2, s, k, r, v, t));
+			}
+
+			double putDeltaCloseForm(const double s, const double k, const double r, const double v, const double t)
+			{
+				return normCdf(dJ(1, s, k, r, v, t)) - 1;
+			}
+			double putGammaCloseForm(const double s, const double k, const double r, const double v, const double t)
+			{
+				return callGammaCloseForm(s, k, r, v, t);
+			}
+			double putVegaCloseForm(const double s, const double k, const double r, const double v, const double t)
+			{
+				return callVegaCloseForm(s, k, r, v, t);
+
+			}
+			double putThetaCloseForm(const double s, const double k, const double r, const double v, const double t)
+			{
+				return -(s*normPdf(dJ(1, s, k, r, v, t)) *v) / (2* std::sqrt(t)) + r *k*std::exp(-r * t) * normCdf(-dJ(2, s, k, r, v, t));
+			}
+			double putRhoCloseForm(const double s, const double k, const double r, const double v, const double t)
+			{
+				return -t*k*std::exp(-r * t) * normCdf(-dJ(2, s, k, r, v, t));
+			}
+
+
 #pragma endregion Example5
 
 #pragma region Example6
-
+			double callDeltaFDM(const double s, const double k, const double r, const double v, const double t, const double h)
+			{
+				return (callPriceCloseForm(s + h, k, r, v, t) - callPriceCloseForm(s, k, r, v, t)) / h;
+			}
+			double callGammaFDM(const double s, const double k, const double r, const double v, const double t, const double h)
+			{
+				return (callPriceCloseForm(s + h, k, r, v, t) - 2*callPriceCloseForm(s, k, r, v, t) + callPriceCloseForm(s - h, k, r, v, t)) / (h*h);
+			}
 
 #pragma endregion Example6
 
 #pragma region Example7
 
 
+			double callPriceMonteCarlo(const int& numSims, const double& s, const double& k, const double& r, const double& v, const double& t)
+			{
+				double sAdjust = s * exp(t * (r - 0.5 * v * v));
+				double sCur = 0.0;
+				double payoffSum = 0.0;
+				for (int i = 0; i < numSims; i++)
+				{
+					double gaussBm = za::ma::com::gaussianBoxMuller();
+					sCur = sAdjust * std::exp(sqrt(v * v * t) * gaussBm);
+					payoffSum += std::max(sCur - k, 0.0);
+				}
+
+				return (payoffSum / static_cast<double>(numSims)) * std::exp(-r * t);
+			}
+			double putPriceMonteCarlo(const int& numSims, const double& s, const double& k, const double& r, const double& v, const double& t)
+			{
+				double sAdjust = s * exp(t * (r - 0.5 * v * v));
+				double sCur = 0.0;
+				double payoffSum = 0.0;
+				for (int i = 0; i < numSims; i++)
+				{
+					double gaussBm = za::ma::com::gaussianBoxMuller();
+					sCur = sAdjust * std::exp(sqrt(v * v * t) * gaussBm);
+					payoffSum += std::max(k - sCur, 0.0);
+				}
+
+				return (payoffSum / static_cast<double>(numSims)) * std::exp(-r * t);
+			}
+
+
 #pragma endregion Example7	
 
 #pragma region Example8
+			// Pricing a European vanilla call option with a Monte Carlo method 
+// Create three separate paths, eahc with either an increment, non-increment or decrement based on deltaS, the stock parameter 
+			void callPriceMonteCarloFDM(const int numSims, const double s, const double k, const double r, const double v, const double t,
+				const double deltaS, double& spPrice, double& sPrice, double& smPriceS)
+			{
+				// since we wish to use the same Gaussian random draws for each path, it is 
+				// necessary to create three separated adjusted stock paths for each 
+				// increment / decrement of the asset 
+				double spAdjust = (s + deltaS) *std::exp(t*(r - 0.5*v*v));
+				double sAdjust = s*std::exp(t*(r - 0.5*v*v));
+				double smAdjust = (s - deltaS) *std::exp(t*(r - 0.5*v*v));
+				
+				// These will store all three current prices as the monte carlo algo is carried out 
+				double spCur = 0.0;
+				double sCur = 0.0;
+				double smCur = 0.0;
 
+				// There are three separate payoff sums for the final price 
+				double spPayoffSum = 0.0;
+				double sPayoffSum = 0.0;
+				double smPayoffSum = 0.0;
+
+				// Loop over the number of simulations 
+			
+				for (int i = 0; i < numSims; i++)
+				{
+					double gaussBm = za::ma::com::gaussianBoxMuller();
+					// Adjust three stock paths 
+					// Adjus t t h r e e s t o c k paths
+					double expGauSs = std::exp(std::sqrt(v*v*t) * gaussBm);
+					spCur = spAdjust* expGauSs;
+					sCur = sAdjust * expGauSs;
+					smCur = smAdjust * expGauSs;
+					// Calculate the continual pay off sum for each increament/decrement 
+					spPayoffSum += std::max(spCur - k, 0.0);
+					sPayoffSum += std::max(sCur - k, 0.0);
+					smPayoffSum += std::max(smCur - k, 0.0);
+				}
+				// There are three separate prices  
+
+				spPrice = (spPayoffSum / static_cast<double>(numSims)) * exp(-r *t);
+				sPrice = (sPayoffSum / static_cast<double>(numSims)) * exp(-r *t);
+				smPriceS = (smPayoffSum / static_cast<double>(numSims)) * exp(-r *t);
+			}
+
+			double callDeltaMonteCarloFDM(const int numSims, const double s, const double k, const double r, const double v, const double t,
+				const double deltaS)
+			{
+				// These values will be populated via the monte carlo price function 
+				// They represent the incremented sp(s + deltaS), non-incremented s 
+				// and decremented sm (s - deltaS) prices
+				double spPrice = 0.0;
+				double sPrice = 0.0;
+				double smPrice = 0.0;
+
+				// Call the Monte Carlo pricer for each of the three stock paths 
+				// we only need two for the delta
+
+				callPriceMonteCarloFDM(numSims, s, k, r, v, t, deltaS, spPrice, sPrice, smPrice);
+				return (spPrice - sPrice) / deltaS;
+			}
+
+			double callGammaMonteCarloFDM(const int numSims, const double s, const double k, const double r, const double v, const double t,
+				const double deltaS)
+			{
+				// These values will be populated via the monte carlo price function 
+				// They represent the incremented sp(s + deltaS), non-incremented s 
+				// and decremented sm (s - deltaS) prices
+				double spPrice = 0.0;
+				double sPrice = 0.0;
+				double smPrice = 0.0;
+
+				// Call the Monte Carlo pricer for each of the three stock paths 
+				// we only need two for the delta
+
+				callPriceMonteCarloFDM(numSims, s, k, r, v, t, deltaS, spPrice, sPrice, smPrice);
+				return (spPrice - 2*sPrice + smPrice) / (deltaS * deltaS);
+			}
 
 #pragma endregion Example8
 

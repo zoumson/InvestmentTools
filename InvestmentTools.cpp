@@ -33,6 +33,11 @@ int main()
 	//od::eulersMethod();
 	//od::rungeKuttaODEMethod();
 	//od::blackScholesForwardMethod();
+	//od::blackScholescloseForm();
+	//od::blackScholesGreeksCloseForm();
+	//od::blackScholesMonteCarlo();
+	//od::blackScholesGreeksFiniteDifferenceMethod();
+	od::blackScholesGreeksMonteCarloFDM();
 	//op::lpSolver();
 	//op::twoDimensionalLPSolver();
 	//op::mipSolver();
@@ -59,7 +64,8 @@ int main()
 	//eg::advancedLinearAlgebra3();
 	//eg::advancedLinearAlgebra4();
 	//mc::closeFormBlackHole();
-	mc::monteCarloBlackHole();
+	//mc::monteCarloBlackHole();
+	//mc::calcGreeks();
 
 
 	return 0;

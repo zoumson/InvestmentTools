@@ -70,25 +70,54 @@ namespace za
 #pragma endregion Example3
 
 #pragma region Example4
-
+			//c++ for quants 
+//close form solution
+			double normPdf(const double& x);
+			double normCdf(const double& x);
+			double dJ(const int& j, const double& s, const double& k, const double& r, const double& v, const double& t);
+			double callPriceCloseForm(const double& s, const double& k, const double& r, const double& v, const double& t);
+			double putPriceCloseForm(const double& s, const double& k, const double& r, const double& v, const double& t);
 #pragma endregion Example4
 
 #pragma region Example5
 
+			double callDeltaCloseForm(const double s, const double k, const double r, const double v, const double t);
+			double callGammaCloseForm(const double s, const double k, const double r, const double v, const double t);
+			double callVegaCloseForm(const double s, const double k, const double r, const double v, const double t);
+			double callThetaCloseForm(const double s, const double k, const double r, const double v, const double t);
+			double callRhoCloseForm(const double s, const double k, const double r, const double v, const double t);
+
+			double putDeltaCloseForm(const double s, const double k, const double r, const double v, const double t);
+			double putGammaCloseForm(const double s, const double k, const double r, const double v, const double t);
+			double putVegaCloseForm(const double s, const double k, const double r, const double v, const double t);
+			double putThetaCloseForm(const double s, const double k, const double r, const double v, const double t);
+			double putRhoCloseForm(const double s, const double k, const double r, const double v, const double t);
 #pragma endregion Example5
 
 #pragma region Example6
-
+			double callDeltaFDM(const double s, const double k, const double r, const double v, const double t, const double h);
+			double callGammaFDM(const double s, const double k, const double r, const double v, const double t, const double h);
 
 #pragma endregion Example6
 
 #pragma region Example7
-
+			//double gaussianBoxMuller();
+			double callPriceMonteCarlo(const int& numSims, const double& s, const double& k, const double& r, const double& v, const double& t);
+			double putPriceMonteCarlo(const int& numSims, const double& s, const double& k, const double& r, const double& v, const double& t);
 
 #pragma endregion Example7	
 
 #pragma region Example8
+			// Pricing a European vanilla call option with a Monte Carlo method 
+			// Create three separate paths, eahc with either an increment, non-increment or decrement based on deltaS, the stock parameter 
+			void callPriceMonteCarloFDM(const int numSims, const double s, const double k, const double r, const double v, const double t, 
+				const double deltaS, double& priceSp, double& priceS, double& priceSm);			
+			
+			double callDeltaMonteCarloFDM(const int numSims, const double s, const double k, const double r, const double v, const double t, 
+				const double deltaS);	
 
+			double callGammaMonteCarloFDM(const int numSims, const double s, const double k, const double r, const double v, const double t, 
+				const double deltaS);
 
 #pragma endregion Example8
 

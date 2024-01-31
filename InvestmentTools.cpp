@@ -37,7 +37,7 @@ int main()
 	//od::blackScholesGreeksCloseForm();
 	//od::blackScholesMonteCarlo();
 	//od::blackScholesGreeksFiniteDifferenceMethod();
-	od::blackScholesGreeksMonteCarloFDM();
+	//od::blackScholesGreeksMonteCarloFDM();
 	//op::lpSolver();
 	//op::twoDimensionalLPSolver();
 	//op::mipSolver();
@@ -65,7 +65,8 @@ int main()
 	//eg::advancedLinearAlgebra4();
 	//mc::closeFormBlackHole();
 	//mc::monteCarloBlackHole();
-	//mc::calcGreeks();
+
+	as::asianOpt();
 
 
 	return 0;

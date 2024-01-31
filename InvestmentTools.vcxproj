@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="InvestmentTools.cpp" />
+    <ClCompile Include="MAAsia.cpp" />
     <ClCompile Include="MAAssetPortfolio.cpp" />
     <ClCompile Include="MACommonLibraries.cpp" />
     <ClCompile Include="MAEigen.cpp" />
@@ -161,6 +162,7 @@
     <ClCompile Include="MAViews.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MAAsia.h" />
     <ClInclude Include="MAAssetPortfolio.h" />
     <ClInclude Include="MACommonLibraries.h" />
     <ClInclude Include="MAEigen.h" />

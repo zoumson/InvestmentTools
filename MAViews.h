@@ -17,7 +17,7 @@
 #include "MAMultithreading.h"
 #include "MAFunctionObject.h"
 #include "MAEigen.h"
-
+#include "MAAsia.h"
 
 namespace za
 {
@@ -228,6 +228,18 @@ namespace za
 			}
 
 #pragma endregion eigenLib
+
+#pragma region asiaOpt
+
+			namespace as
+			{
+				using namespace za::ma::as;
+				void asianOpt();
+
+
+			}
+
+#pragma endregion asiaOpt
 
 		}
 	}

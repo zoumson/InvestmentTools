@@ -815,97 +815,7 @@ namespace za
 				}
 
 
-				//void closeFormBlackHole()
-				//{
-				//	// first create parameter list 
-				//	double s = 100.0; // Option price
-				//	double k = 100.0; // Strike price
-				//	double r = 0.05; // Risk-free rate (5%)
-				//	double v = 0.2; // volatility of the underlying (20%)
-				//	double t = 1.0; // One year untill expiry 
-				//	double call = closeFormCallPrice(s, k, r, v, t);
-				//	double put = closeFormPutPrice(s, k, r, v, t);
-				//	// Fi n a l l y we output the parameters and p r i c e s
-				//	std::cout << "Underlying : " << s << std::endl;
-				//	std::cout << " Strike : " << k << std::endl;
-				//	std::cout << "Risk-Free Rate : " << r << std::endl;
-				//	std::cout << " Volatility : " << v << std::endl;
-				//	std::cout << "Maturity : " << t << std::endl;
-				//	std::cout << "Call Price : " << call << std::endl;
-				//	std::cout << "Put Price : " << put << std::endl;
-				//}
-				//
-				//
-				//void monteCarloBlackHole()
-				//{
-				//	// first create parameter list 
-				//	int numSims = 10000000; // Number of s imulat ed a s s e t paths
-				//	double s = 100.0; // Option price
-				//	double k = 100.0; // Strike price
-				//	double r = 0.05; // Risk-free rate (5%)
-				//	double v = 0.2; // volatility of the underlying (20%)
-				//	double t = 1.0; // One year untill expiry 
-				//	// Then we calculate the call/put values 
-				//	double call = monteCarloCallPrice(numSims, s, k, r, v, t);
-				//	double put = monteCarloPutPrice(numSims, s, k, r, v, t);
-				//	// Finally we output the parameters and prices 
-				//	std::cout << "Underlying : " << s << std::endl;
-				//	std::cout << " Strike : " << k << std::endl;
-				//	std::cout << "Risk-Free Rate : " << r << std::endl;
-				//	std::cout << " Volatility : " << v << std::endl;
-				//	std::cout << "Maturity : " << t << std::endl;
-				//	std::cout << "Call Price : " << call << std::endl;
-				//	std::cout << "Put Price : " << put << std::endl;
-				//}		
-
-
-				//void calcGreeks()
-				//{
-				//	// first create parameter list 
-				//	double s = 100.0; // Option price
-				//	double k = 100.0; // Strike price
-				//	double r = 0.05; // Risk-free rate (5%)
-				//	double v = 0.2; // volatility of the underlying (20%)
-				//	double t = 1.0; // One year untill expiry 
-				//	// Then we calculate the call/put values  and greeks 
-				//	double callVal = closeFormCallPrice(s, k, r, v, t);
-				//	double callDeltaVal = callDelta(s, k, r, v, t);
-				//	double callGammaVal = callGamma(s, k, r, v, t);
-				//	double callVegaVal = callVega(s, k, r, v, t);
-				//	double callThetaVal = callTheta(s, k, r, v, t);
-				//	double callRhoVal = callRho(s, k, r, v, t);					
-				//	
-				//	double putVal = closeFormPutPrice(s, k, r, v, t);
-				//	double putDeltaVal = putDelta(s, k, r, v, t);
-				//	double putGammaVal = putGamma(s, k, r, v, t);
-				//	double putVegaVal = putVega(s, k, r, v, t);
-				//	double putThetaVal = putTheta(s, k, r, v, t);
-				//	double putRhoVal = putRho(s, k, r, v, t);
 		
-				//	//double put = monteCarloPutPrice(numSims, s, k, r, v, t);
-				//	// Finally we output the parameters and prices 
-				//	std::cout << "Underlying : " << s << std::endl;
-				//	std::cout << " Strike : " << k << std::endl;
-				//	std::cout << "Risk-Free Rate : " << r << std::endl;
-				//	std::cout << " Volatility : " << v << std::endl;
-				//	std::cout << "Maturity : " << t << std::endl;
-
-
-				//	std::cout << "Call Price : " << callVal << std::endl;
-				//	std::cout << "Call Delta : " << callDeltaVal << std::endl;
-				//	std::cout << "Call Gamma : " << callGammaVal << std::endl;
-				//	std::cout << "Call Vega : " << callVegaVal << std::endl;
-				//	std::cout << "Call Theta : " << callThetaVal << std::endl;
-				//	std::cout << "Call Rho : " << callRhoVal << std::endl;
-
-				//	std::cout << "Put Price : " << putVal << std::endl;
-				//	std::cout << "Put Delta : " << putDeltaVal << std::endl;
-				//	std::cout << "Put Gamma : " << putGammaVal << std::endl;
-				//	std::cout << "Put Vega : " << putVegaVal << std::endl;
-				//	std::cout << "Put Theta : " << putThetaVal << std::endl;
-				//	std::cout << "Put Rho : " << putRhoVal << std::endl;
-				//	
-				//}
 
 
 			}
@@ -1270,7 +1180,61 @@ namespace za
 			}
 
 #pragma endregion eigenLib
+#pragma region asiaOpt
 
+			namespace as
+			{
+				using namespace za::ma::as;
+				void asianOpt()
+				{
+					
+					// first create parameter list 
+					unsigned int numSims = 100000; // Number of simulated asset paths 
+					unsigned int numIntervals = 250; // Number of simulated asset sample intervals 
+
+					double s = 30; // Option price
+					double k = 29.0; // Strike price
+					double r = 0.08; // Risk-free rate (8%)
+					double v = 0.3; // volatility of the underlying (30%)
+					double t = 1.0; // One year untill expiry 
+					std::vector<double> spotPrices(numIntervals, s);// Vector of spot prices 
+					// Create the PayOff objects 
+					PayOff* payOffCall = new PayOffCall(k);
+
+					// Create the AsianOption object
+					//AsianOptionArithmetic asian(payOffCall);
+					AsianOptionArithmetic* asian = new AsianOptionArithmetic(payOffCall);
+					
+					// Update the spot price vector with correct 
+					// spot price paths at constant intervals 
+					
+					double payOffSum = 0.0;
+					for (int i = 0; i < numSims; i++)
+					{
+						calcPathSpotPrices(spotPrices, r, v, t);
+						payOffSum += asian->payOffPrice(spotPrices);
+					}
+
+					double discountPayOffAvg = (payOffSum / static_cast<double>(numSims)) * std::exp(-r * t);
+					delete payOffCall, asian;
+
+
+					// Finally we output the parameters and prices 
+					std::cout << "Number of Paths : " << numSims << std::endl;
+					std::cout << "Number of Intervals : " << numIntervals << std::endl;
+					std::cout << "Underlying : " << s << std::endl;
+					std::cout << " Strike : " << k << std::endl;
+					std::cout << "Risk-Free Rate : " << r << std::endl;
+					std::cout << " Volatility : " << v << std::endl;
+					std::cout << "Maturity : " << t << std::endl;
+					std::cout << "Asian Price : " << discountPayOffAvg << std::endl;
+
+				}
+
+
+			}
+
+#pragma endregion asiaOpt
 		}
 	}
 

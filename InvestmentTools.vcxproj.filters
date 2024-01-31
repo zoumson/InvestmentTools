@@ -72,6 +72,9 @@
     <ClCompile Include="MAEigen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MAAsia.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAFixedIncome.h">
@@ -126,6 +129,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MAEigen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MAAsia.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

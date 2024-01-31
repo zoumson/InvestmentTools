@@ -4,7 +4,7 @@
 #include "MAEquities.h"
 #include "MAProgrammingTechniques.h"
 #include "MACommonLibraries.h"
-#include "MANumerical.h"
+#include "MANumericalClasses.h"
 #include "MALinearAlgebra.h"
 #include "MAInterpolation.h"
 #include "MARoot.h"
@@ -81,6 +81,7 @@ namespace za
 				void factorialTemplate();
 				void calmarRatio();
 				void distributionData();
+				void linearCongruentialGenerator();
 
 			};
 #pragma endregion numericalClasses
@@ -107,9 +108,11 @@ namespace za
 
 			namespace re
 			{
-				void bisectionMethod();
+				void bisectionMethod1();
+				void bisectionMethod2();
 				void secantMethod();
-				void newtonMethod();
+				void newtonMethod1();
+				void newtonMethod2();
 
 			};
 #pragma endregion root

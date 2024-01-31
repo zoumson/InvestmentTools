@@ -81,7 +81,7 @@ namespace za
 
 				for (int i = 1; i < spotPrices.size(); i++)
 				{
-					double gaussBm = za::ma::com::gaussianBoxMuller();
+					double gaussBm = za::ma::nc::gaussianBoxMuller();
 					spotPrices[i] = spotPrices[i - 1] * drift * std::exp(vol * gaussBm);
 				}
 

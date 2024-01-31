@@ -22,11 +22,14 @@ int main()
 	//nc::factorialTemplate();
 	//nc::calmarRatio();
 	//nc::distributionData();
+	nc::linearCongruentialGenerator();
 	//la::matrixOperations();
 	//it::linearInterpolation();
 	//it::polynomialInterpolation();
 	//re::secantMethod();
-	//re::newtonMethod();
+	//re::bisectionMethod2();
+	//re::newtonMethod1();
+	//re::newtonMethod2();
 	//ni::midpointIntegration();
 	//ni::trapezoidIntegration();
 	//ni::simpsonsIntegration();
@@ -66,7 +69,7 @@ int main()
 	//mc::closeFormBlackHole();
 	//mc::monteCarloBlackHole();
 
-	as::asianOpt();
+	//as::asianOpt();
 
 
 	return 0;

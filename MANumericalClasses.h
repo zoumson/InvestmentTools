@@ -163,10 +163,49 @@ namespace za
 #pragma endregion Example4
 
 #pragma region Example5
-
+			// new quant book 
+			double gaussianBoxMuller();
 #pragma endregion Example5
 
 #pragma region Example6
+
+			class RandomNumberGenerator
+			{
+			protected:
+				unsigned long initSeed; // Initial random seed value 
+				unsigned long curSeed; // Current random seed value 
+				unsigned long numDraws; // Dimensionality of the RNG
+
+			public:
+				RandomNumberGenerator(unsigned long numDrawsArg, unsigned long initSeedArg) : numDraws(numDrawsArg), initSeed(initSeedArg), curSeed(initSeedArg) {};
+				virtual ~RandomNumberGenerator() {};
+				virtual unsigned long getRandomSeed() const { return curSeed; };
+				virtual void setRandomSeed(unsigned long seedArg)  {  curSeed = seedArg; };
+				virtual void reSetRandomSeed() { curSeed = initSeed; };
+				virtual void setNumDraws(unsigned long numDrawsArg)  { numDraws = numDrawsArg; };
+				// Obtain a random integer (needed for creating random uniforms) 
+				virtual unsigned long getRandomInteger()  = 0;
+
+				// Fill a vector with uniform random variables on the open interval (0, 1)
+				virtual void getUniformDraws(std::vector<double>& draws)  = 0;
+
+			};
+			class LinearCongruentialGenerator : public RandomNumberGenerator
+			{
+			private:
+				double maxMultiplier; 
+
+			public:
+				LinearCongruentialGenerator(unsigned long numDrawsArg, unsigned long initSeedArg = 1);
+				virtual ~LinearCongruentialGenerator() {};
+
+				// Obtain a random integer (needed for creating random uniforms) 
+				unsigned long getRandomInteger()  override;
+
+				// Fill a vector with uniform random variables on the open interval (0, 1)
+				void getUniformDraws(std::vector<double>& draws)   override;
+
+			};
 
 #pragma endregion Example6
 

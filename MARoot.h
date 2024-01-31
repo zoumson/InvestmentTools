@@ -1,6 +1,6 @@
 #pragma once
+#include "MAOdePde.h"
 #include "MAUtilities.h"
-
 
 
 namespace za
@@ -94,8 +94,66 @@ namespace za
 #pragma endregion Example3
 
 #pragma region Example4
+			//new quant book 
+			template<typename T> 
+			double intervalBisection(double yTarget, double lowerBound, double upperBound, double tolerance, T f)
+			{
+				// Create the intitial x mid-point value 
+				// Find the mapped y value of f(x)
+				double x = 0.5 * (lowerBound + upperBound);
+				double y = f(x);
 
+				// While the difference between y and the yTarget value is greater than the tolerance keep 
+				// Subdividing the interval into successively smaller halves and tre-evaluate the new y
+
+				do
+				{
+					if (y < yTarget)
+					{
+						lowerBound = x;
+					}				
+					
+					if (y > yTarget)
+					{
+						upperBound = x;
+					}
+
+					x = 0.5 * (lowerBound + upperBound);
+					y = f(x);
+				} while (std::fabs(y - yTarget) > tolerance);
+
+				return x;
+
+			}
 #pragma endregion Example4
+			template< typename T, 
+			double (T::* g)(double) const,
+			double (T::* gPrime)(double) const>
+			double newtonRaphson(double yTarget, double init, double tolerance, const T& f)
+			{
+
+				// Set the initial option prices and volatility
+				double y = (f.*g)(init); // initial option price 
+				double x = init; // initial volatility 
+
+				// While y and yTarget are not similar enough 
+				// Take the vega of the option and recalcultate 
+				// A new call price based on the best linear 
+				// Approximation at that particular vol value 
+
+				while (std::fabs(y - yTarget) > tolerance)
+				{
+					double dX = (f.*gPrime)(x);
+
+					x += (yTarget - y) / dX;
+					y = (f.*g)(x);
+
+				}
+
+				return x;
+
+			}
+
 
 #pragma region Example5
 

@@ -1,5 +1,5 @@
-#include "MANumerical.h"
-
+#include "MANumericalClasses.h"
+//#include "MAUtilities.h"
 
 
 namespace za
@@ -253,11 +253,87 @@ namespace za
 #pragma endregion Example4
 
 #pragma region Example5
-			
+			double gaussianBoxMuller()
+			{
+				double x = 0.0;
+				double y = 0.0;
+				double euclidSq = 0.0;
+				//continue generating two uniform random variables 
+				//until the square of their euclidean distance is less than unity 
+				do
+				{
+					x = 2.0 * rand() / static_cast<double>(RAND_MAX) - 1;
+					y = 2.0 * rand() / static_cast<double>(RAND_MAX) - 1;
+
+					euclidSq = x * x + y * y;
+				} while (euclidSq >= 1.0);
+
+				return x * std::sqrt(-2 * std::log(euclidSq) / euclidSq);
+
+			}
+
+
+
+
+
+
 #pragma endregion Example5
 
 #pragma region Example6
-			
+
+			// This uses the Park Miller algorithm found in "Numerial Recipes in C"
+			// Define the constants for the Park Miller algorithm 
+
+			const unsigned long a = 16807; // 7^5
+			const unsigned long m = 2147483647; // 2^32( and thus prime)
+
+			// Schrage's algorithm constants
+			const unsigned long q = 127773;
+			const unsigned long r = 2836;
+
+
+			// Parameter constructor 
+			LinearCongruentialGenerator::LinearCongruentialGenerator(unsigned long numDrawsArg, unsigned long initSeedArg): RandomNumberGenerator(numDrawsArg, initSeedArg)
+			{
+				if (initSeedArg == 0)
+				{
+					initSeed = 1;
+					curSeed = 1;
+				}
+
+				maxMultiplier = 1.0 / (1.0 + (m - 1));
+			}
+
+			// Obtain a random unsigned long integer 
+	
+
+			// Obtain a random integer (needed for creating random uniforms) 
+			 // dont mark this function const as it modifying the current seed 
+			unsigned long LinearCongruentialGenerator::getRandomInteger() 
+			{				
+				unsigned long k = 0; 
+				k = curSeed / q;
+				curSeed = (unsigned long )a * (curSeed - k * q) - r * k;
+
+
+				if (curSeed < 0)
+				{
+					curSeed += m;
+				}
+
+				return curSeed;
+
+			}
+
+			// Fill a vector with uniform random variables on the open interval (0, 1)
+			void LinearCongruentialGenerator::getUniformDraws(std::vector<double>& draws)
+			{
+				for (int long i = 0; i < numDraws; i++)
+				{
+					draws[i] = getRandomInteger() * maxMultiplier;
+				}
+			}
+
 #pragma endregion Example6
 
 #pragma region Example7

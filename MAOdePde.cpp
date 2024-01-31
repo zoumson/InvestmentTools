@@ -303,7 +303,7 @@ namespace za
 				double payoffSum = 0.0;
 				for (int i = 0; i < numSims; i++)
 				{
-					double gaussBm = za::ma::com::gaussianBoxMuller();
+					double gaussBm = za::ma::nc::gaussianBoxMuller();
 					sCur = sAdjust * std::exp(sqrt(v * v * t) * gaussBm);
 					payoffSum += std::max(sCur - k, 0.0);
 				}
@@ -317,7 +317,7 @@ namespace za
 				double payoffSum = 0.0;
 				for (int i = 0; i < numSims; i++)
 				{
-					double gaussBm = za::ma::com::gaussianBoxMuller();
+					double gaussBm = za::ma::nc::gaussianBoxMuller();
 					sCur = sAdjust * std::exp(sqrt(v * v * t) * gaussBm);
 					payoffSum += std::max(k - sCur, 0.0);
 				}
@@ -355,7 +355,7 @@ namespace za
 			
 				for (int i = 0; i < numSims; i++)
 				{
-					double gaussBm = za::ma::com::gaussianBoxMuller();
+					double gaussBm = za::ma::nc::gaussianBoxMuller();
 					// Adjust three stock paths 
 					// Adjus t t h r e e s t o c k paths
 					double expGauSs = std::exp(std::sqrt(v*v*t) * gaussBm);
@@ -374,8 +374,7 @@ namespace za
 				smPriceS = (smPayoffSum / static_cast<double>(numSims)) * exp(-r *t);
 			}
 
-			double callDeltaMonteCarloFDM(const int numSims, const double s, const double k, const double r, const double v, const double t,
-				const double deltaS)
+			double callDeltaMonteCarloFDM(const int numSims, const double s, const double k, const double r, const double v, const double t, const double deltaS)
 			{
 				// These values will be populated via the monte carlo price function 
 				// They represent the incremented sp(s + deltaS), non-incremented s 
@@ -391,8 +390,7 @@ namespace za
 				return (spPrice - sPrice) / deltaS;
 			}
 
-			double callGammaMonteCarloFDM(const int numSims, const double s, const double k, const double r, const double v, const double t,
-				const double deltaS)
+			double callGammaMonteCarloFDM(const int numSims, const double s, const double k, const double r, const double v, const double t, const double deltaS)
 			{
 				// These values will be populated via the monte carlo price function 
 				// They represent the incremented sp(s + deltaS), non-incremented s 
@@ -412,7 +410,21 @@ namespace za
 
 #pragma region Example9
 
+			BlackScholesCall::BlackScholesCall(double sArg, double kArg, double rArg, double tArg) : s(sArg), k(kArg), r(rArg), t(tArg){}
 
+			double BlackScholesCall::operator()(double sigma) const
+			{
+
+				return callPriceCloseForm(s, k, r, sigma, t);
+			}
+			double  BlackScholesCall::optionPrice(double sigma) const
+			{
+				return callPriceCloseForm(s, k, r, sigma, t);
+			}
+			double  BlackScholesCall::optionVega(double sigma) const
+			{
+				return callVegaCloseForm(s, k, r, sigma, t);
+			}
 #pragma endregion Example9
 
 #pragma region Example10

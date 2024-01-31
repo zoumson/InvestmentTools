@@ -312,6 +312,27 @@ namespace za
 					auto ldata = dData.logNormalData(10, 8, 2);
 					printData("log normal data", ldata);
 				}
+				void linearCongruentialGenerator()
+				{
+					// new quant book
+					// Set the initial seed and the dimentionality of the RNG
+					unsigned long initSeed = 1;
+					unsigned long numDraws = 20;
+
+					std::vector<double> randomDraws(numDraws, 0.0);
+
+					// Create the LCG object and create the random uniform draws 
+					// on the open interval (0, 1)
+					LinearCongruentialGenerator lgc(numDraws, initSeed);
+					lgc.getUniformDraws(randomDraws);
+					// Output the random draws to the console
+
+					for (int long i = 0; i < numDraws; i++)
+					{
+						std::cout << randomDraws[i] << std::endl;
+					}
+
+				}
 
 			};
 #pragma endregion numericalClasses
@@ -388,12 +409,39 @@ namespace za
 			namespace re
 			{
 				using namespace za::ma::re;
-				void bisectionMethod()
+				using namespace za::ma::od;
+				void bisectionMethod1()
 				{
 					//MathFunction m;
 					F1 f;
 					BisectionMethod bm(f);
 					std::cout << " the root of the function is " << bm.getRoot(-100, 100) << std::endl;
+				}
+									
+				void bisectionMethod2()
+				{
+					/*
+					* Implied volatility 
+					*/
+					// first create parameter list 
+					double s = 100.0; // Option price
+					double k = 100.0; // Strike price
+					double r = 0.05; // Risk-free rate (5%)
+					double t = 1.0; // One year untill expiry 
+					double cm = 10.5; // Option market price 
+					// Creater the black-scholes call functor 
+					BlackScholesCall bsc(s, k, r, t);
+					// Interval bissection parameters 
+					double lowVol = 0.05;
+					double highVol = 0.35;
+					double tolerance = 0.001;
+
+					// Calculate the implied volatility 
+					double sigma = intervalBisection(cm, lowVol, highVol, tolerance, bsc);
+
+					// Output the values 
+					std::cout << "Implied Volatitlity: " << sigma << std::endl;
+
 				}
 								
 				void secantMethod()
@@ -403,13 +451,37 @@ namespace za
 					SecantMethod sm(f);
 					std::cout << " the root of the function is " << sm.getRoot(-10, 10) << std::endl;
 				}								
-				void newtonMethod()
+				void newtonMethod1()
 				{
 					//MathFunction m;
 					F1 f;
 					DF1 df;
 					NewtonMethod nm(f, df);
 					std::cout << " the root of the function is " << nm.getRoot(100) << std::endl;
+				}				
+				
+				void newtonMethod2()
+				{
+					/*
+					* Implied volatility
+					*/
+					// first create parameter list 
+					double s = 100.0; // Option price
+					double k = 100.0; // Strike price
+					double r = 0.05; // Risk-free rate (5%)
+					double t = 1.0; // One year untill expiry 
+					double cm = 10.5; // Option market price 
+					// Creater the black-scholes call functor 
+					BlackScholesCall bsc(s, k, r, t);
+					// Newton Raphson parameters 
+					double init = 0.3; // our guess implied vol of 30%
+					double tolerance = 0.001;
+
+					// Calculate the implied volatility 
+					double sigma = newtonRaphson <BlackScholesCall, &BlackScholesCall::optionPrice, &BlackScholesCall::optionVega>(cm, init, tolerance, bsc);
+
+					// Output the values 
+					std::cout << "Implied Volatitlity: " << sigma << std::endl;
 				}
 
 			};

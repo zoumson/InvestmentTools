@@ -113,16 +113,28 @@ namespace za
 			void callPriceMonteCarloFDM(const int numSims, const double s, const double k, const double r, const double v, const double t, 
 				const double deltaS, double& priceSp, double& priceS, double& priceSm);			
 			
-			double callDeltaMonteCarloFDM(const int numSims, const double s, const double k, const double r, const double v, const double t, 
-				const double deltaS);	
+			double callDeltaMonteCarloFDM(const int numSims, const double s, const double k, const double r, const double v, const double t, const double deltaS);	
 
-			double callGammaMonteCarloFDM(const int numSims, const double s, const double k, const double r, const double v, const double t, 
-				const double deltaS);
+			double callGammaMonteCarloFDM(const int numSims, const double s, const double k, const double r, const double v, const double t, const double deltaS);
 
 #pragma endregion Example8
 
 #pragma region Example9
 
+			class BlackScholesCall
+			{
+			private:
+				double s; // Underlying asset price 
+				double k; // Strike price 
+				double r; // Risk-free rate 
+				double t; // Time to maturity 
+			public:
+				BlackScholesCall(double sArg, double kArg, double rArg, double tArg);
+				double optionPrice(double sigma) const;
+				double optionVega(double sigma) const;
+				double operator()(double sigma) const;
+
+			};
 
 #pragma endregion Example9
 

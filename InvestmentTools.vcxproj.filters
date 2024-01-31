@@ -36,7 +36,7 @@
     <ClCompile Include="MACommonLibraries.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MANumerical.cpp">
+    <ClCompile Include="MANumericalClasses.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MALinearAlgebra.cpp">
@@ -75,6 +75,9 @@
     <ClCompile Include="MAAsia.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MAJokers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAFixedIncome.h">
@@ -95,7 +98,7 @@
     <ClInclude Include="MACommonLibraries.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MANumerical.h">
+    <ClInclude Include="MANumericalClasses.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MALinearAlgebra.h">
@@ -132,6 +135,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MAAsia.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MAJokers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

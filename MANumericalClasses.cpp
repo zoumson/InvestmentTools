@@ -338,16 +338,138 @@ namespace za
 
 #pragma region Example7
 
+			StandardNormalDistribution::StandardNormalDistribution(){}
+			StandardNormalDistribution::~StandardNormalDistribution(){}
+			double StandardNormalDistribution::pdf(const double& x) const
+			{
+				return (1.0 / std::sqrt(2.0 * za::ma::com::pi())) * std::exp(-0.5 * x * x);
+			}
+			double StandardNormalDistribution::cdf(const double& x) const
+			{
+				double k = 1.0 / (1.0 + 0.2316419);
+				double kSum = k * (0.319381530 + k * (-0.356563782 + k * (1.781477937 + k * (-1.821255978 + 1.330274429 * k))));
+				
+				if (x >= 0.0)
+				{
+					return (1.0 - (1.0 / (std::pow(2 * za::ma::com::pi(), 0.5))) * std::exp(-0.5 * x * x) * kSum);
+				}
+				else
+				{
+					return 1.0 - cdf(-x);
+				}
+
+			}
+			double StandardNormalDistribution::invCdf(const double& quantile) const
+			{
+				// This is the Beasley-Springer-Moro algorithm which can be found in Glasserman 
+
+				static double a[4] = {	2.50662823884,
+										-18.61500062529, 
+										41.39119773534, 
+										-25.44106049637};
+				
+				static double b[4] = {	-8.47351093090,
+										23.08336743743, 
+										-21.06224101826, 
+										3.13082909833};
+								
+				static double c[9] = {	0.3374754822726147,
+										0.9761690190917186, 
+										0.1607979714918209, 
+										0.0276438810333863,
+										0.0038405729373609,
+										0.0003951896511919,
+										0.0000321767881768,
+										0.0000002888167364,
+										0.0000003960315187};
+											
+				if (quantile >= 0.5 && quantile <= 0.92)
+				{
+					double num = 0.0;
+					double denom = 1.0;
+
+					for (int i = 0; i < 4; i++)
+					{
+						num += a[i] * std::pow((quantile - 0.5), 2 * i + 1);
+						denom += b[i] * std::pow((quantile - 0.5), 2 * i );
+					}
+
+					return num / denom;
+				}
+				else if (quantile > 0.92 && quantile < 1)
+				{
+					double num = 0.0;
+					
+					for (int i = 0; i < 9; i++)
+					{
+						num += c[i] * std::pow((std::log(-std::log(1 - quantile))), i);
+					}
+
+					return num;
+				}
+				else
+				{
+					return -1.0 * invCdf(1 - quantile);
+				}
+
+
+			}
+			double StandardNormalDistribution::mean() const { return 0.0; }
+			double StandardNormalDistribution::var() const { return 1.0; }
+			double StandardNormalDistribution::stdev() const { return 1.0; }
+			void StandardNormalDistribution::randomDraws(const std::vector<double>& uniformDraws, std::vector<double>& distDraws)
+			{
+				//The simplest method to calculate this is with the Box-Mulller method 
+				
+				//Check that the uniform draws and dist draws are the same size and have an even number of elements 
+				if (uniformDraws.size() != distDraws.size())
+				{
+					std::cout << "Draw vectors are of unequal size." << std::endl;
+					return;
+				}
+				if (uniformDraws.size() % 2 != 0)
+				{
+					std::cout << "Uniform draws vector size not an even number." << std::endl;
+				}
+
+				for (int i = 0; i < uniformDraws.size() / 2; i++)
+				{
+					distDraws[2 * i] = std::sqrt(-2.0 * std::log(uniformDraws[2 * i])) * std::sin(2 * za::ma::com::pi() * uniformDraws[2 * i + 1]);
+					distDraws[2 * i + 1] = std::sqrt(-2.0 * std::log(uniformDraws[2 * i])) * std::cos(2 * za::ma::com::pi() * uniformDraws[2 * i + 1]);
+				}
+
+			}
 
 #pragma endregion Example7	
 
 #pragma region Example8
-			
+			CorrelatedSND::CorrelatedSND(const double rhoArg, const std::vector<double>* uncorrDrawsArg) : rho(rhoArg), uncorrDraws(uncorrDrawsArg) {}
+			CorrelatedSND::~CorrelatedSND() {}
+			void CorrelatedSND::correlationCalc(std::vector<double>& distDraws)
+			{
+				// This carries out the actual correlation modification 
+				// If rho = 0.0 then distDraws is unmodified, whereas if rho = 1.0 then 
+				// distDraws is set to uncorreDraws 
+				// Thus with 0 < rho < 1 we have a weighted average of each set 
+				for (int i = 0; i < distDraws.size(); i++)
+				{
+					distDraws[i] = rho * (*uncorrDraws)[i] + distDraws[i] * std::sqrt(1 - rho * rho);
+				}
+			}
+			void CorrelatedSND::randomDraws(const std::vector<double>& uniformDraws, std::vector<double>& distDraws)
+			{
+				super::randomDraws(uniformDraws, distDraws);
+				//StandardNormalDistribution::randomDraws(uniformDraws, distDraws);
+				// Modify the random draws via the correlation calculation 
+				correlationCalc(distDraws);
+
+			}
+
 
 #pragma endregion Example8
 
 #pragma region Example9
-			
+
 #pragma endregion Example9
 
 #pragma region Example10

@@ -139,7 +139,8 @@ namespace za
 #pragma endregion Example9
 
 #pragma region Example10
-
+			double callPriceJumpDiffusion(const double s, const double k, const double r, const double sigma, const double t,
+										  const int n, const double m, const double lambda, const double  nu);
 
 #pragma endregion Example10
 

@@ -428,7 +428,40 @@ namespace za
 #pragma endregion Example9
 
 #pragma region Example10
+			double callPriceJumpDiffusion(const double s, const double k, const double r, const double sigma, const double t,
+				const int n, const double m, const double lambda, const double  nu)
+			{
+				// store the final price 
+				double price = 0.0;
 
+				double factorial = 1.0;
+
+				// Pre-calculate as much as possible 
+				double lambdaP = lambda * m;
+				double lambdaPT = lambdaP * t;
+
+				// Calculate the finite sum over n terms 
+				for (int i = 0; i < n; i++)
+				{
+					double sigmaI = std::sqrt(sigma * sigma + i * nu * nu / t);
+					double rI = r - lambda * (m - 1) + i * std::log(m) / t;
+					// Calculate n!
+					if (i == 0)
+					{
+						factorial *= 1;
+					}
+					else
+					{
+						factorial *= i;
+					}
+
+					// Tefine the jump price over the loop 
+					price += ((std::exp(-lambdaPT) * std::pow(lambdaPT, i)) / factorial) * callPriceCloseForm(s, k, rI, sigmaI, t);
+				}
+
+				return price;
+
+			}
 
 #pragma endregion Example10
 

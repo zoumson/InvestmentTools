@@ -312,6 +312,8 @@ namespace za
 					auto ldata = dData.logNormalData(10, 8, 2);
 					printData("log normal data", ldata);
 				}
+
+
 				void linearCongruentialGenerator()
 				{
 					// new quant book
@@ -332,6 +334,84 @@ namespace za
 						std::cout << randomDraws[i] << std::endl;
 					}
 
+				}
+
+				void standardNormalGenerator()
+				{
+					// new quant book
+					// Create the Standard  Normal Distritbution and random draw vectors 
+					StandardNormalDistribution snd;
+					std::vector< double> uniformDraws(20, 0.0);
+					std::vector< double> normalDraws(20, 0.0);
+
+					// Simple random number generation method based on RAND
+					for (int i = 0; i < uniformDraws.size(); i++)
+					{
+						uniformDraws[i] = rand() / static_cast<double>(RAND_MAX);
+					}
+
+					// Create standard normal random draws 
+					// Notice that uniform draws are  unaffected. 
+					// We have separated out the uniform creation from the normal draw creation, 
+					// Which will allow us to create sophisticated random number generators
+					// Whithout interfering with the statistical classes 
+					snd.randomDraws(uniformDraws, normalDraws);
+					for (int i = 0; i < normalDraws.size(); i++)
+					{
+						std::cout << normalDraws[i] << std::endl;
+					}
+
+
+				}
+
+				void correlatedSNDGenerator()
+				{
+					// Number of values 
+					int vals = 30;
+
+					/*
+					* Uncorrelated SND 
+					*/
+					// Create the Standard Normal Distribution  and random draw vectors 
+					StandardNormalDistribution snd;
+					std::vector<double> sndUniformDraws(vals, 0.0);
+					std::vector<double> sndNormalDraws(vals, 0.0);
+
+					// Simple random number generation method based on RAND 
+					// We could be more sophisticated and use a LLG or Mersenne Twister 
+					// but we are trying to demonstrate correlation, not efficient 
+					// random number generation 
+					for (int i = 0; i < sndUniformDraws.size(); i++)
+					{
+						sndUniformDraws[i] = rand() / static_cast<double>(RAND_MAX);
+					}
+
+					// Create standard normal draws 
+					snd.randomDraws(sndUniformDraws, sndNormalDraws);
+
+					/*
+					* Correlated SND
+					*/
+					// Correlation coefficient 
+					double rho = 0.5;
+					// Create the correlated standard normal distribution 
+					CorrelatedSND csnd(rho, &sndNormalDraws);
+					std::vector<double> csndUniformDraws(vals, 0.0);
+					std::vector<double> csndNormalDraws(vals, 0.0);
+
+					// Uniform generation for the correlated SND 
+					for (int i = 0; i < csndUniformDraws.size(); i++)
+					{
+						csndUniformDraws[i] = rand() / static_cast<double>(RAND_MAX);
+					}
+
+					// Now create the correlated standard normal draw series 
+					csnd.randomDraws(csndUniformDraws, csndNormalDraws);
+
+					for (int long i = 0; i < csndNormalDraws.size(); i++)
+					{
+						std::cout << sndNormalDraws[i] << ", " << csndNormalDraws[i] << std::endl;
+					}
 				}
 
 			};
@@ -707,6 +787,27 @@ namespace za
 
 					std::cout << "Call Delta : " << callDeltaVal << std::endl;
 					std::cout << "Call Gamma : " << callGammaVal << std::endl;
+
+				}
+				void blackScholesJumpingDiffusion()
+				{
+					// first create parameter list 
+					double s = 100.0; // Option price
+					double k = 100.0; // Strike price
+					double r = 0.05; // Risk-free rate (5%)
+					double v = 0.2; // volatility of the underlying (20%)
+					double t = 1.0; // One year untill expiry 
+					int n = 50; // Terms in the finite sum approximation 
+					double m = 1.083287; // Scale factor for J
+					double lambda = 1.0; // Intensity of jumps 
+					double nu = 0.4; // stdev of lognormal jump process 
+					// Calculate the call jump diffusion value 
+
+					double callJD = callPriceJumpDiffusion(s, k, r, v, t, n, m, lambda, nu);
+
+
+					std::cout << "Call Price Under Jump Diffusion : " << callJD << std::endl;
+
 
 				}
 					

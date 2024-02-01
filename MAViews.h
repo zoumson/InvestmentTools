@@ -82,6 +82,8 @@ namespace za
 				void calmarRatio();
 				void distributionData();
 				void linearCongruentialGenerator();
+				void standardNormalGenerator();
+				void correlatedSNDGenerator();
 
 			};
 #pragma endregion numericalClasses
@@ -142,6 +144,7 @@ namespace za
 				void blackScholesMonteCarlo();
 				void blackScholesGreeksFiniteDifferenceMethod();
 				void blackScholesGreeksMonteCarloFDM();
+				void blackScholesJumpingDiffusion();
 			}
 
 #pragma endregion OdePde

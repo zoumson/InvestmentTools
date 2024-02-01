@@ -22,7 +22,9 @@ int main()
 	//nc::factorialTemplate();
 	//nc::calmarRatio();
 	//nc::distributionData();
-	nc::linearCongruentialGenerator();
+	//nc::linearCongruentialGenerator();
+	//nc::standardNormalGenerator();
+	nc::correlatedSNDGenerator();
 	//la::matrixOperations();
 	//it::linearInterpolation();
 	//it::polynomialInterpolation();
@@ -41,6 +43,7 @@ int main()
 	//od::blackScholesMonteCarlo();
 	//od::blackScholesGreeksFiniteDifferenceMethod();
 	//od::blackScholesGreeksMonteCarloFDM();
+	//od::blackScholesJumpingDiffusion();
 	//op::lpSolver();
 	//op::twoDimensionalLPSolver();
 	//op::mipSolver();

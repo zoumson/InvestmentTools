@@ -210,12 +210,75 @@ namespace za
 #pragma endregion Example6
 
 #pragma region Example7
+			class StatisticalDistribution
+			{
+			public:
+				StatisticalDistribution() {};
+				virtual ~StatisticalDistribution() {};
+
+				// Distribution functions 
+				virtual double pdf(const double& x) const = 0;
+				virtual double cdf(const double& x) const = 0;
+
+				// Inverse cumulative distributions ( aka the  quantile function)
+				virtual double invCdf(const double& quantile) const = 0;
+
+				// Descriptive stats
+				virtual double mean() const = 0;
+				virtual double var() const = 0;
+				virtual double stdev() const = 0;
+
+				// Obtain a sequence of random draws from this distribution 
+				virtual void randomDraws(const std::vector<double>& unifromDraws, std::vector<double>& distDraws) = 0;
+
+			};
+
+			class StandardNormalDistribution : public StatisticalDistribution
+			{
+			public:
+				// used to access parent class method 
+				using super = StatisticalDistribution;
+				StandardNormalDistribution();
+				virtual ~StandardNormalDistribution();
+
+
+				// Distribution functions 
+				double pdf(const double& x) const override;
+				double cdf(const double& x) const override;
+
+				// Inverse cumulative distributions ( aka the  quantile function, the probit function)
+				double invCdf(const double& quantile) const override;
+
+				// Descriptive stats
+				double mean() const override; // equal to 0
+				double var() const override; // equal to 1
+				double stdev() const override; //equal to 1
+
+				// Obtain a sequence of random draws from the standard normal distribution 
+				void randomDraws(const std::vector<double>& unifromDraws, std::vector<double>& distDraws) override;
+
+			};
+
 
 
 #pragma endregion Example7	
 
 #pragma region Example8
-
+			class CorrelatedSND : public StandardNormalDistribution
+			{
+			protected:
+				double rho;
+				const std::vector<double>* uncorrDraws;
+				// Modify an uncorrelated set of distribution draws to be correlated 
+				virtual void correlationCalc(std::vector<double>& distDraws);
+			public:
+				// used to access parent class method 
+				using super = StandardNormalDistribution;
+				CorrelatedSND(const double rhoArg, const std::vector<double>* uncorrDrawsArg);
+				virtual ~CorrelatedSND();
+				// Obtain a sequence of correlated random draws from another set of SND draws 
+				void randomDraws(const std::vector<double>& uniformDraws, std::vector<double>& distDraws) override;
+			};
 
 #pragma endregion Example8
 
